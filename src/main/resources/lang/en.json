@@ -1,0 +1,23 @@
+{
+  "main_chooseXlsxButton": "Browse",
+  "main_exit": "Exit",
+  "main_exitConfirm": "Are you sure you want to exit now?",
+  "main_hintXlsxFileSelectUsage": "Please select an xlsx file contains routes.",
+  "main_labelDes": "Dest:",
+  "main_labelSettings": "Settings",
+  "main_labelOrigin": "Origin:",
+  "main_labelXlsxPath": "XLSX File Path:",
+  "main_resetRouteButton": "Reset",
+  "main_saveXlsxFilePath": "Save Path",
+  "main_searchRouteAirportsNullOrEmpty": "Origin or destination airports are null or empty.",
+  "main_searchRouteButton": "Search",
+  "main_searchRouteNotFound": "No route found.",
+  "main_searchRouteSheetNotFound": "Sheet not found in the xlsx file.",
+  "main_windowTitle": "Japan Route Finder",
+  "settings_cancelButton": "Cancel",
+  "settings_labelLang": "Language",
+  "settings_labelLangEn": "English",
+  "settings_labelLangJa": "日本語",
+  "settings_saveButton": "Save",
+  "settings_windowTitle": "Settings"
+}

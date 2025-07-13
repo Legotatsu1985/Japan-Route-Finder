@@ -1,0 +1,23 @@
+{
+  "main_chooseXlsxButton": "ブラウズ",
+  "main_exit": "終了",
+  "main_exitConfirm": "終了しますか？",
+  "main_hintXlsxFileSelectUsage": "xlsxファイルを選択してください。",
+  "main_labelDes": "目的地:",
+  "main_labelSettings": "設定",
+  "main_labelOrigin": "出発地:",
+  "main_labelXlsxPath": "XLSXファイル:",
+  "main_resetRouteButton": "リセット",
+  "main_saveXlsxFilePath": "パスを保存する",
+  "main_searchRouteAirportsNullOrEmpty": "出発空港または目的地空港が空欄です。",
+  "main_searchRouteButton": "検索",
+  "main_searchRouteNotFound": "ルートが見つかりませんでした。",
+  "main_searchRouteSheetNotFound": "xlsxファイルにシートが見つかりませんでした。",
+  "main_windowTitle": "Japan Route Finder",
+  "settings_cancelButton": "キャンセル",
+  "settings_labelLang": "言語",
+  "settings_labelLangEn": "English",
+  "settings_labelLangJa": "日本語",
+  "settings_saveButton": "保存",
+  "settings_windowTitle": "設定"
+}
