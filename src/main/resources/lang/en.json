@@ -6,6 +6,8 @@
   "main_labelDes": "Dest:",
   "main_labelSettings": "Settings",
   "main_labelOrigin": "Origin:",
+  "main_labelRoute": "Route(s)",
+  "main_labelRouteRemark": "Remark(s)",
   "main_labelXlsxPath": "XLSX File Path:",
   "main_resetRouteButton": "Reset",
   "main_saveXlsxFilePath": "Save Path",

@@ -6,6 +6,8 @@
   "main_labelDes": "目的地:",
   "main_labelSettings": "設定",
   "main_labelOrigin": "出発地:",
+  "main_labelRoute": "ルート",
+  "main_labelRouteRemark": "備考",
   "main_labelXlsxPath": "XLSXファイル:",
   "main_resetRouteButton": "リセット",
   "main_saveXlsxFilePath": "パスを保存する",
