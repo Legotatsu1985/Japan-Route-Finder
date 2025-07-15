@@ -8,10 +8,15 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.out/artifacts/Japan-Route-Finder.zip
+.out/artifacts/Run_Archive.bat
+.out/artifacts/Japan_Route_Finder_jar/Japan-Route-Finder.jar
 *.iws
 *.iml
 *.ipr
 *.properties
+*.bat
+*.zip
 
 ### Eclipse ###
 .apt_generated
