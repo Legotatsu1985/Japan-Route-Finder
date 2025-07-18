@@ -29,12 +29,16 @@ public class MainWindow extends JFrame {
         originICAOLabel.setBounds(10, 40, 80, 20);
         JLabel destICAOLabel = new JLabel(lang.getText("main_labelDes"));
         destICAOLabel.setBounds(10, 70, 80, 20);
+        JLabel resultRouteRemarksLabel = new JLabel(lang.getText("main_labelRouteRemark"));
+        resultRouteRemarksLabel.setBounds(10, 140, 190, 20);
+        JLabel resultRouteLabel = new JLabel(lang.getText("main_labelRoute"));
+        resultRouteLabel.setBounds(210, 140, 760, 20);
 
         JTextArea resultRouteRemarksTextArea = new JTextArea();
-        resultRouteRemarksTextArea.setBounds(10,140, 190, 300);
+        resultRouteRemarksTextArea.setBounds(10,160, 190, 280);
         resultRouteRemarksTextArea.setEditable(false);
         JTextArea resultRouteTextArea = new JTextArea();
-        resultRouteTextArea.setBounds(210, 140, 760, 300);
+        resultRouteTextArea.setBounds(210, 160, 760, 280);
         resultRouteTextArea.setEditable(false);
 
         JTextField xlsxFilePathField = new JTextField();
@@ -64,6 +68,8 @@ public class MainWindow extends JFrame {
         mainPanel.add(saveXlsxFilePathCheckBox);
         mainPanel.add(originICAOLabel);
         mainPanel.add(destICAOLabel);
+        mainPanel.add(resultRouteRemarksLabel);
+        mainPanel.add(resultRouteLabel);
         mainPanel.add(originICAOField);
         mainPanel.add(destICAOField);
         mainPanel.add(resetRouteButton);

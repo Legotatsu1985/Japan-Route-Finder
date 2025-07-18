@@ -1,0 +1,2 @@
+[v0.6.0-beta]
+Added: Text labels for Route and Remarks result fields. (2025-07-18)
