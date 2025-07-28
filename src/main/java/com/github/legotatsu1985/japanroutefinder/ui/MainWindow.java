@@ -6,6 +6,7 @@ import com.github.legotatsu1985.japanroutefinder.ui.buttons.ButtonActions;
 import com.github.legotatsu1985.japanroutefinder.ui.textlabels.LangJsonLoader;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
@@ -23,6 +24,8 @@ public class MainWindow extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
 
+        Border border = new BevelBorder(BevelBorder.LOWERED);
+
         JLabel xlsxFileLabel = new JLabel(lang.getText("main_labelXlsxPath"));
         xlsxFileLabel.setBounds(10, 10, 100, 20);
         JLabel originICAOLabel = new JLabel(lang.getText("main_labelOrigin"));
@@ -37,16 +40,21 @@ public class MainWindow extends JFrame {
         JTextArea resultRouteRemarksTextArea = new JTextArea();
         resultRouteRemarksTextArea.setBounds(10,160, 190, 280);
         resultRouteRemarksTextArea.setEditable(false);
+        resultRouteRemarksTextArea.setBorder(border);
         JTextArea resultRouteTextArea = new JTextArea();
         resultRouteTextArea.setBounds(210, 160, 760, 280);
         resultRouteTextArea.setEditable(false);
+        resultRouteTextArea.setBorder(border);
 
         JTextField xlsxFilePathField = new JTextField();
         xlsxFilePathField.setBounds(100, 10, 300, 20);
+        xlsxFilePathField.setBorder(border);
         JTextField originICAOField = new JTextField();
         originICAOField.setBounds(100, 40, 100, 20);
+        originICAOField.setBorder(border);
         JTextField destICAOField = new JTextField();
         destICAOField.setBounds(100, 70, 100, 20);
+        destICAOField.setBorder(border);
 
         JCheckBox saveXlsxFilePathCheckBox = new JCheckBox(lang.getText("main_saveXlsxFilePath"));
         saveXlsxFilePathCheckBox.setBounds(520, 10, 150, 20);

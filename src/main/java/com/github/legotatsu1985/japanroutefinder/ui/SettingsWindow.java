@@ -1,5 +1,6 @@
 package com.github.legotatsu1985.japanroutefinder.ui;
 
+import com.github.legotatsu1985.japanroutefinder.ui.buttons.ButtonActions;
 import com.github.legotatsu1985.japanroutefinder.ui.textlabels.LangJsonLoader;
 import com.github.legotatsu1985.japanroutefinder.components.FilesController;
 
@@ -66,12 +67,21 @@ public class SettingsWindow extends JDialog {
         getContentPane().add(mainPanel, BorderLayout.CENTER);
 
         saveButton.addActionListener(e -> {
+            String selectedLang = "";
             if (langEnButton.isSelected()) {
+                selectedLang = "en";
                 FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "en");
             } else if (langJaButton.isSelected()) {
+                selectedLang = "ja";
                 FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "ja");
             }
-            dispose();
+            if (langTypeFromCfg != null && !langTypeFromCfg.equals(selectedLang)) {
+                JOptionPane.showMessageDialog(this, lang.getText("settings_langChangedRelaunchRequired"), lang.getText("settings_langChangedTitle"), JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                ButtonActions.exitApp();
+            } else {
+                dispose();
+            }
         });
 
         cancelButton.addActionListener(e -> {

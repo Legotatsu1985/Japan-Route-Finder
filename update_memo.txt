@@ -1,2 +1,4 @@
 [v0.6.0-beta]
 Added: Text labels for Route and Remarks result fields. (2025-07-18)
+Added: An information dialog appears when the user changed the language. (2025-07-28)
+Updated: All text fields are now easy to see with a shadow. (2025-07-28)
