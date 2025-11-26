@@ -1,8 +1,0 @@
-[v1.0.0]
-Added: Text labels for Route and Remarks result fields. (2025-07-18)
-Added: An information dialog appears when the user changed the language. (2025-07-28)
-Updated: All text fields are now easy to see with a shadow. (2025-07-28)
-[v1.0.1]
-Fixed: The route and remarks do not show even if the user has pressed the "Search" button. (2025-08-04)
-Fixed: Uncontrolled Recursion vulnerability in Apache Commons Lang. Version 3.18.0 or later is required. (2025-08-04)
-Fixed: Some logging dependencies were not added to the classpath and pom.xml. (2025-08-04)

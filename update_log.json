@@ -1,0 +1,36 @@
+{
+  "1.0.0": {
+    "added": [
+      {
+      "date": "2025-07-18",
+      "description": "Text labels for Route and Remarks result fields."
+      },
+      {
+        "date": "2025-07-28",
+        "description": "An information dialog appears when the user changed the language."
+      }
+    ],
+    "updated": [
+      {
+        "date": "2025-07-28",
+        "description": "All text fields are now easy to see with a shadow."
+      }
+    ]
+  },
+  "1.0.1": {
+    "fixed": [
+      {
+        "date": "2025-08-04",
+        "description": "The route and remarks do not show even if the user has pressed the Search button."
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Uncontrolled Recursion vulnerability in Apache Commons Lang. Version 3.18.0 or later is required."
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Some logging dependencies were not added to the classpath and pom.xml."
+      }
+    ]
+  }
+}
