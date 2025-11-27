@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
     private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
-    public MainWindow() throws Exception {
+    public MainWindow() {
         String langCode = LangJsonLoader.checkLang();
         LangJsonLoader lang = new LangJsonLoader(langCode);
 

@@ -10,6 +10,15 @@ import java.awt.*;
 public class SettingsWindow extends JDialog {
     private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
     private final LangJsonLoader lang;
+
+    private JPanel mainPanel;
+    private JLabel langLabel;
+    private JButton saveButton;
+    private JButton cancelButton;
+    private JRadioButton langEnButton;
+    private JRadioButton langJaButton;
+    private ButtonGroup langGroup;
+
     public SettingsWindow() {
         String langCode = LangJsonLoader.checkLang();
         this.lang = new LangJsonLoader(langCode);
@@ -20,59 +29,61 @@ public class SettingsWindow extends JDialog {
         this.setSize(400, 300);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        initComponents();
+    }
+    private void initComponents() {
+        this.mainPanel = new JPanel();
+        this.mainPanel.setLayout(null);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(null);
+        this.langLabel = new JLabel();
+        this.langLabel.setText(this.lang.getText("settings_labelLang"));
+        this.langLabel.setBounds(10, 10, 200, 20);
 
-        JLabel langLabel = new JLabel();
-        langLabel.setText(this.lang.getText("settings_labelLang"));
-        langLabel.setBounds(10, 10, 200, 20);
+        this.saveButton = new JButton (this.lang.getText("settings_saveButton"));
+        this.saveButton.setBounds(100, 225, 100, 30);
+        this.cancelButton = new JButton(this.lang.getText("settings_cancelButton"));
+        this.cancelButton.setBounds(200, 225, 100, 30);
 
-        JButton saveButton = new JButton (this.lang.getText("settings_saveButton"));
-        saveButton.setBounds(100, 225, 100, 30);
-        JButton cancelButton = new JButton(this.lang.getText("settings_cancelButton"));
-        cancelButton.setBounds(200, 225, 100, 30);
-
-        JRadioButton langEnButton = new JRadioButton(this.lang.getText("settings_labelLangEn"));
-        langEnButton.setBounds(10, 40, 200, 20);
-        JRadioButton langJaButton = new JRadioButton(this.lang.getText("settings_labelLangJa"));
-        langJaButton.setBounds(10, 70, 200, 20);
+        this.langEnButton = new JRadioButton(this.lang.getText("settings_labelLangEn"));
+        this.langEnButton.setBounds(10, 40, 200, 20);
+        this.langJaButton = new JRadioButton(this.lang.getText("settings_labelLangJa"));
+        this.langJaButton.setBounds(10, 70, 200, 20);
         
         String langTypeFromCfg = FilesController.getProperty(APP_CONFIG_PROPERTIES_PATH, "lang");
         switch (langTypeFromCfg) {
             case "en":
-                langEnButton.setSelected(true);
+                this.langEnButton.setSelected(true);
                 break;
             case "ja":
-                langJaButton.setSelected(true);
+                this.langJaButton.setSelected(true);
                 break;
             case null:
-                langEnButton.setEnabled(false);
-                langJaButton.setEnabled(false);
+                this.langEnButton.setEnabled(false);
+                this.langJaButton.setEnabled(false);
                 break;
             default:
-                langEnButton.setSelected(true); // Default to English if no valid language is set
+                this.langEnButton.setSelected(true); // Default to English if no valid language is set
                 break;
         }
 
-        ButtonGroup langGroup = new ButtonGroup();
-        langGroup.add(langEnButton);
-        langGroup.add(langJaButton);
+        this.langGroup = new ButtonGroup();
+        this.langGroup.add(this.langEnButton);
+        this.langGroup.add(this.langJaButton);
 
-        mainPanel.add(langLabel);
-        mainPanel.add(langEnButton);
-        mainPanel.add(langJaButton);
-        mainPanel.add(saveButton);
-        mainPanel.add(cancelButton);
+        this.mainPanel.add(this.langLabel);
+        this.mainPanel.add(this.langEnButton);
+        this.mainPanel.add(this.langJaButton);
+        this.mainPanel.add(this.saveButton);
+        this.mainPanel.add(this.cancelButton);
 
         getContentPane().add(mainPanel, BorderLayout.CENTER);
 
-        saveButton.addActionListener(_ -> {
+        this.saveButton.addActionListener(_ -> {
             String selectedLang = "";
-            if (langEnButton.isSelected()) {
+            if (this.langEnButton.isSelected()) {
                 selectedLang = "en";
                 FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "en");
-            } else if (langJaButton.isSelected()) {
+            } else if (this.langJaButton.isSelected()) {
                 selectedLang = "ja";
                 FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "ja");
             }
@@ -84,7 +95,6 @@ public class SettingsWindow extends JDialog {
                 dispose();
             }
         });
-
-        cancelButton.addActionListener(_ -> dispose());
+        this.cancelButton.addActionListener(_ -> dispose());
     }
 }
