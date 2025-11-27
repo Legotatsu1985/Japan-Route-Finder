@@ -1,9 +1,9 @@
 package com.github.legotatsu1985.japanroutefinder.ui;
 
+import com.github.legotatsu1985.japanroutefinder.App;
 import com.github.legotatsu1985.japanroutefinder.components.FilesController;
 import com.github.legotatsu1985.japanroutefinder.components.RouteFinder;
 import com.github.legotatsu1985.japanroutefinder.ui.buttons.ButtonActions;
-import com.github.legotatsu1985.japanroutefinder.ui.textlabels.LangJsonLoader;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -12,10 +12,7 @@ import java.awt.*;
 public class MainWindow extends JFrame {
     private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
     public MainWindow() {
-        String langCode = LangJsonLoader.checkLang();
-        LangJsonLoader lang = new LangJsonLoader(langCode);
-
-        setTitle(lang.getText("main_windowTitle"));
+        setTitle(App.LANG.getText("main_windowTitle"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 600);
         setResizable(false);
@@ -26,15 +23,15 @@ public class MainWindow extends JFrame {
 
         Border border = new BevelBorder(BevelBorder.LOWERED);
 
-        JLabel xlsxFileLabel = new JLabel(lang.getText("main_labelXlsxPath"));
+        JLabel xlsxFileLabel = new JLabel(App.LANG.getText("main_labelXlsxPath"));
         xlsxFileLabel.setBounds(10, 10, 100, 20);
-        JLabel originICAOLabel = new JLabel(lang.getText("main_labelOrigin"));
+        JLabel originICAOLabel = new JLabel(App.LANG.getText("main_labelOrigin"));
         originICAOLabel.setBounds(10, 40, 80, 20);
-        JLabel destICAOLabel = new JLabel(lang.getText("main_labelDes"));
+        JLabel destICAOLabel = new JLabel(App.LANG.getText("main_labelDes"));
         destICAOLabel.setBounds(10, 70, 80, 20);
-        JLabel resultRouteRemarksLabel = new JLabel(lang.getText("main_labelRouteRemark"));
+        JLabel resultRouteRemarksLabel = new JLabel(App.LANG.getText("main_labelRouteRemark"));
         resultRouteRemarksLabel.setBounds(10, 140, 190, 20);
-        JLabel resultRouteLabel = new JLabel(lang.getText("main_labelRoute"));
+        JLabel resultRouteLabel = new JLabel(App.LANG.getText("main_labelRoute"));
         resultRouteLabel.setBounds(210, 140, 760, 20);
 
         JTextArea resultRouteRemarksTextArea = new JTextArea();
@@ -56,18 +53,18 @@ public class MainWindow extends JFrame {
         destICAOField.setBounds(100, 70, 100, 20);
         destICAOField.setBorder(border);
 
-        JCheckBox saveXlsxFilePathCheckBox = new JCheckBox(lang.getText("main_saveXlsxFilePath"));
+        JCheckBox saveXlsxFilePathCheckBox = new JCheckBox(App.LANG.getText("main_saveXlsxFilePath"));
         saveXlsxFilePathCheckBox.setBounds(520, 10, 150, 20);
 
-        JButton chooseXlsxButton = new JButton(lang.getText("main_chooseXlsxButton"));
+        JButton chooseXlsxButton = new JButton(App.LANG.getText("main_chooseXlsxButton"));
         chooseXlsxButton.setBounds(410, 10, 100, 20);
-        JButton resetRouteButton = new JButton(lang.getText("main_resetRouteButton"));
+        JButton resetRouteButton = new JButton(App.LANG.getText("main_resetRouteButton"));
         resetRouteButton.setBounds(10, 100, 90, 30);
-        JButton searchRouteButton = new JButton(lang.getText("main_searchRouteButton"));
+        JButton searchRouteButton = new JButton(App.LANG.getText("main_searchRouteButton"));
         searchRouteButton.setBounds(100, 100, 100, 30);
-        JButton appSettingsButton = new JButton(lang.getText("main_labelSettings"));
+        JButton appSettingsButton = new JButton(App.LANG.getText("main_labelSettings"));
         appSettingsButton.setBounds(500, 500, 100, 30);
-        JButton exitButton = new JButton(lang.getText("main_exit"));
+        JButton exitButton = new JButton(App.LANG.getText("main_exit"));
         exitButton.setBounds(400, 500, 100, 30);
 
         mainPanel.add(xlsxFileLabel);
