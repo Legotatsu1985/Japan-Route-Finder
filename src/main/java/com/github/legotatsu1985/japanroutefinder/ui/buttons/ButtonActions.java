@@ -1,7 +1,7 @@
 package com.github.legotatsu1985.japanroutefinder.ui.buttons;
 
 import com.github.legotatsu1985.japanroutefinder.ui.SettingsWindow;
-import com.github.legotatsu1985.japanroutefinder.components.FilesController;
+import com.github.legotatsu1985.japanroutefinder.util.FilesController;
 
 public class ButtonActions {
     public static void exitApp() {

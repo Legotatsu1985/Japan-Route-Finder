@@ -3,8 +3,8 @@ package com.github.legotatsu1985.japanroutefinder;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import com.github.legotatsu1985.japanroutefinder.ui.MainWindow;
-import com.github.legotatsu1985.japanroutefinder.components.FilesController;
-import com.github.legotatsu1985.japanroutefinder.ui.textlabels.LangJsonLoader;
+import com.github.legotatsu1985.japanroutefinder.util.FilesController;
+import com.github.legotatsu1985.japanroutefinder.util.LangJsonLoader;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
