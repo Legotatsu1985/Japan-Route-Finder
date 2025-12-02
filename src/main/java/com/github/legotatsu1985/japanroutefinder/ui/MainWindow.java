@@ -131,18 +131,20 @@ public class MainWindow extends JFrame {
         });
         this.resetRouteButton.addActionListener(_ -> {
             //xlsxFilePathField.setText("");
-            this.originICAOField.setText("");
-            this.destICAOField.setText("");
-            this.resultRouteTextArea.setText("");
+            this.originICAOField.setText(null);
+            this.destICAOField.setText(null);
+            this.resultRouteTextArea.setText(null);
         });
         this.searchRouteButton.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
             String originICAO = this.originICAOField.getText().trim();
             String destICAO = this.destICAOField.getText().trim();
 
+            /*
             if (xlsxFilePath.isEmpty() || originICAO.isEmpty() || destICAO.isEmpty()) {
                 System.out.println("Please fill in all fields.");
             }
+             */
 
             String route;
             try {
