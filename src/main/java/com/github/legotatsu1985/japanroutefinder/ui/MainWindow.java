@@ -165,8 +165,8 @@ public class MainWindow extends JFrame {
         this.exitButton.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
             boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
-            ButtonActions.exitApp();
             ButtonActions.saveXlsxFilePath(APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
+            ButtonActions.exitApp();
         });
         this.appSettingsButton.addActionListener(_ -> ButtonActions.openSettings());
     }
