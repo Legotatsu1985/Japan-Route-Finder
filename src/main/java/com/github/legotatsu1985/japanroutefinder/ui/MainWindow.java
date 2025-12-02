@@ -154,6 +154,8 @@ public class MainWindow extends JFrame {
             }
             if (route != null && !route.isEmpty()) {
                 this.resultRouteTextArea.setText(route);
+            } else {
+                this.resultRouteTextArea.setText(App.LANG.getText("main_searchRouteNotFound"));
             }
             if (remarks != null && !remarks.isEmpty()) {
                 this.resultRouteRemarksTextArea.setText(remarks);
