@@ -1,9 +1,10 @@
 package com.github.legotatsu1985.japanroutefinder.ui;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.components.FilesController;
-import com.github.legotatsu1985.japanroutefinder.components.RouteFinder;
+import com.github.legotatsu1985.japanroutefinder.util.FilesController;
+// import com.github.legotatsu1985.japanroutefinder.modules.RouteFinder;
 import com.github.legotatsu1985.japanroutefinder.ui.buttons.ButtonActions;
+import com.github.legotatsu1985.japanroutefinder.util.RouteFinder;
 
 import javax.swing.*;
 import javax.swing.border.*;
