@@ -1,4 +1,4 @@
-package com.github.legotatsu1985.japanroutefinder.components;
+package com.github.legotatsu1985.japanroutefinder.util;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

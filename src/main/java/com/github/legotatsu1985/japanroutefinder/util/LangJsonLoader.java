@@ -1,6 +1,5 @@
-package com.github.legotatsu1985.japanroutefinder.ui.textlabels;
+package com.github.legotatsu1985.japanroutefinder.util;
 
-import com.github.legotatsu1985.japanroutefinder.components.FilesController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;

@@ -1,12 +1,14 @@
-package com.github.legotatsu1985.japanroutefinder.components;
+package com.github.legotatsu1985.japanroutefinder.modules;
 
-import com.github.legotatsu1985.japanroutefinder.ui.textlabels.LangJsonLoader;
+import com.github.legotatsu1985.japanroutefinder.util.LangJsonLoader;
 
 import java.io.FileInputStream;
 import java.util.regex.Pattern;
 import org.apache.poi.ss.usermodel.*;
 
+@Deprecated
 public class RouteFinder {
+    @Deprecated
     public static String findRoute(String xlsxFilePath,String originICAO,String destICAO) throws Exception {
         String langCode = LangJsonLoader.checkLang();
         LangJsonLoader lang = new LangJsonLoader(langCode);
@@ -54,6 +56,7 @@ public class RouteFinder {
             return lang.getText("main_searchRouteNotFound");
         }
     }
+    @Deprecated
     public static String findRouteRemarks(String xlsxFilePath,String originICAO,String destICAO) throws Exception {
         String langCode = LangJsonLoader.checkLang();
         LangJsonLoader lang = new LangJsonLoader(langCode);
