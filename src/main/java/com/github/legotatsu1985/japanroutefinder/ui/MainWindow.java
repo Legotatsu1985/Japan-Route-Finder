@@ -141,30 +141,24 @@ public class MainWindow extends JFrame {
             String originICAO = this.originICAOField.getText().trim();
             String destICAO = this.destICAOField.getText().trim();
 
-            /*
-            if (xlsxFilePath.isEmpty() || originICAO.isEmpty() || destICAO.isEmpty()) {
-                System.out.println("Please fill in all fields.");
-            }
-             */
-
+            RouteFinder routeFinder = new RouteFinder(xlsxFilePath, originICAO, destICAO);
             String route;
-            try {
-                route = RouteFinder.findRoute(xlsxFilePath, originICAO, destICAO);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-            if (route != null && !route.isEmpty()){
-                this.resultRouteTextArea.setText(route);
-            }
             String remarks;
             try {
-                remarks = RouteFinder.findRouteRemarks(xlsxFilePath, originICAO, destICAO);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                routeFinder.open();
+                route = routeFinder.findRoute();
+                remarks = routeFinder.findRouteRemarks();
+                routeFinder.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            if (route != null && !route.isEmpty()) {
+                this.resultRouteTextArea.setText(route);
             }
             if (remarks != null && !remarks.isEmpty()) {
                 this.resultRouteRemarksTextArea.setText(remarks);
             }
+
         });
         this.exitButton.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
