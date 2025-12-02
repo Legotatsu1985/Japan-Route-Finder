@@ -20,6 +20,7 @@
   "settings_labelLang": "Language",
   "settings_labelLangEn": "English",
   "settings_labelLangJa": "日本語",
+  "settings_labelStyle": "Window Style",
   "settings_langChangedRelaunchRequired": "Language changed, please relaunch the application to apply the changes.",
   "settings_langChangedTitle": "Language Changed",
   "settings_saveButton": "Save",

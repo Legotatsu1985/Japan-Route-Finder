@@ -20,6 +20,7 @@
   "settings_labelLang": "言語",
   "settings_labelLangEn": "English",
   "settings_labelLangJa": "日本語",
+  "settings_labelStyle": "ウィンドウテーマ",
   "settings_langChangedRelaunchRequired": "言語が変更されました。適用するにはアプリケーションを再起動してください。",
   "settings_langChangedTitle": "言語変更",
   "settings_saveButton": "保存",
