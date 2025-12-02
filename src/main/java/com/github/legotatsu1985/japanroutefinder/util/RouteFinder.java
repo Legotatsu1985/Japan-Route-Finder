@@ -47,7 +47,7 @@ public class RouteFinder {
         }
     }
     @Nullable
-    public String findRoute() throws Exception {
+    public String findRoute() {
         if (this.domesticSheet == null) {
             throw new IllegalStateException("Domestic sheet is not loaded.");
         }
@@ -80,7 +80,7 @@ public class RouteFinder {
         }
     }
     @Nullable
-    public String findRouteRemarks() throws Exception {
+    public String findRouteRemarks() {
         if (this.domesticSheet == null) {
             throw new IllegalStateException("Domestic sheet is not loaded.");
         }
