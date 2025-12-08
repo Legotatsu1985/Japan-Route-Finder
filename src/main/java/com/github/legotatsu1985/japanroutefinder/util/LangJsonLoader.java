@@ -1,5 +1,6 @@
 package com.github.legotatsu1985.japanroutefinder.util;
 
+import com.github.legotatsu1985.japanroutefinder.App;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
@@ -36,8 +37,8 @@ public class LangJsonLoader {
     public static String checkLang() {
         String en = "en";
         String ja = "ja";
-        if (FilesController.isPropertiesFileExists(APP_CONFIG_PROPERTIES_PATH)) {
-            String lang = FilesController.getProperty(APP_CONFIG_PROPERTIES_PATH, "lang");
+        if (App.FILES_CONTROLLER.isFileExists()) {
+            String lang = App.FILES_CONTROLLER.getProperty("lang");
             if ("ja".equals(lang)) {
                 return ja;
             } else {

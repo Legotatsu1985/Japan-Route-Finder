@@ -1,5 +1,6 @@
 package com.github.legotatsu1985.japanroutefinder.ui.buttons;
 
+import com.github.legotatsu1985.japanroutefinder.App;
 import com.github.legotatsu1985.japanroutefinder.ui.SettingsWindow;
 import com.github.legotatsu1985.japanroutefinder.util.FilesController;
 
@@ -19,12 +20,20 @@ public class ButtonActions {
         String xlsxFilePathKey = "xlsxFilePath";
         if (checkboxState) {
             if (xlsxPath != null && !xlsxPath.isEmpty()) {
-                FilesController.saveProperty(filePath, xlsxFilePathKey, xlsxPath);
+                try {
+                    App.FILES_CONTROLLER.saveProperty(xlsxFilePathKey, xlsxPath);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 System.err.println("XLSX file path is empty. Cannot save.");
             }
         } else {
-            FilesController.removeProperty(filePath, xlsxFilePathKey);
+            try {
+                App.FILES_CONTROLLER.removeProperty(xlsxFilePathKey);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

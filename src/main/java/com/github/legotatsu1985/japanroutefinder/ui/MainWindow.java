@@ -11,8 +11,6 @@ import javax.swing.border.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
-    private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
-
     private JPanel mainPanel;
     private Border border;
     private JLabel xlsxFileLabel;
@@ -108,8 +106,8 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
 
         // Load saved XLSX file path if it exists
-        if (FilesController.isPropertiesFileExists(APP_CONFIG_PROPERTIES_PATH)) {
-            String savedXlsxFilePath = FilesController.getProperty(APP_CONFIG_PROPERTIES_PATH, "xlsxFilePath");
+        if (App.FILES_CONTROLLER.isFileExists()) {
+            String savedXlsxFilePath = App.FILES_CONTROLLER.getProperty("xlsxFilePath");
             if (savedXlsxFilePath != null && !savedXlsxFilePath.isEmpty()) {
                 this.xlsxFilePathField.setText(savedXlsxFilePath);
                 this.saveXlsxFilePathCheckBox.setSelected(true);
@@ -128,7 +126,7 @@ public class MainWindow extends JFrame {
         this.saveXlsxFilePathCheckBox.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
             boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
-            ButtonActions.saveXlsxFilePath(APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
+            ButtonActions.saveXlsxFilePath(App.APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
         });
         this.resetRouteButton.addActionListener(_ -> {
             //xlsxFilePathField.setText("");
@@ -165,7 +163,7 @@ public class MainWindow extends JFrame {
         this.exitButton.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
             boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
-            ButtonActions.saveXlsxFilePath(APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
+            ButtonActions.saveXlsxFilePath(App.APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
             ButtonActions.exitApp();
         });
         this.appSettingsButton.addActionListener(_ -> ButtonActions.openSettings());

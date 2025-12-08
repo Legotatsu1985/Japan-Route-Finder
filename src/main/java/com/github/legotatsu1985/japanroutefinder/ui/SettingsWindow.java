@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SettingsWindow extends JDialog {
-    private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
     private static final String[] LANGUAGES = {"English", "Japanese"};
     private static final String[] LANG_CODES = {"en", "ja"};
     private static final String[] WINDOW_STYLES = {"Light", "Dark", "IntelliJ", "Darcula"};
@@ -49,7 +48,7 @@ public class SettingsWindow extends JDialog {
 
         this.langComboBox = new JComboBox<>(LANGUAGES);
         this.langComboBox.setBounds(220, 10, 150, 20);
-        this.langComboBox.setSelectedIndex(getLangIndex(FilesController.getProperty(APP_CONFIG_PROPERTIES_PATH, "lang")));
+        this.langComboBox.setSelectedIndex(getLangIndex(App.FILES_CONTROLLER.getProperty("lang")));
         this.styleComboBox = new JComboBox<>(WINDOW_STYLES);
         this.styleComboBox.setBounds(220, 40, 150, 20);
         this.styleComboBox.setEnabled(false); // Disabled until saving mechanism is implemented.
@@ -97,7 +96,11 @@ public class SettingsWindow extends JDialog {
 
         this.saveButton.addActionListener(_ -> {
             String selectedLangCode = LANG_CODES[this.langComboBox.getSelectedIndex()];
-            FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", selectedLangCode);
+            try {
+                App.FILES_CONTROLLER.saveProperty("lang", selectedLangCode);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             /*
             String selectedLang = "";
             if (this.langEnButton.isSelected()) {
