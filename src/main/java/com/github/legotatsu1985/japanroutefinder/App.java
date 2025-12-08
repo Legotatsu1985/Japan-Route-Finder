@@ -13,12 +13,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class App {
-    private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
+    public static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
     public static LangJsonLoader LANG;
+    public static final FilesController FILES_CONTROLLER = new FilesController(APP_CONFIG_PROPERTIES_PATH);
     public static void main(String[] args) {
         if (!Files.exists(Paths.get(APP_CONFIG_PROPERTIES_PATH))) {
             System.out.println("Creating default properties file...");
-            FilesController.createPropertiesFile(APP_CONFIG_PROPERTIES_PATH);
+            FILES_CONTROLLER.initProperties();
         }
         String langCode = LangJsonLoader.checkLang();
         LANG = new LangJsonLoader(langCode);
