@@ -1,14 +1,12 @@
 package com.github.legotatsu1985.japanroutefinder;
 
-import com.formdev.flatlaf.FlatLightLaf;
-
-import com.github.legotatsu1985.japanroutefinder.ui.MainWindow;
-import com.github.legotatsu1985.japanroutefinder.util.FilesController;
-import com.github.legotatsu1985.japanroutefinder.util.LangJsonLoader;
+import com.github.legotatsu1985.japanroutefinder.ui.*;
+import com.github.legotatsu1985.japanroutefinder.util.*;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.SwingUtilities;
+import java.awt.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -26,10 +24,20 @@ public class App {
         // MainWindow mainWindow = new MainWindow();
         // mainWindow.setVisible(true);
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(SettingsWindow.getWindowStyle());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> new MainWindow().setVisible(true));
+    }
+    public static void updateLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(SettingsWindow.getWindowStyle());
+            for (Window window : Window.getWindows()) {
+                SwingUtilities.updateComponentTreeUI(window);
+            }
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 }

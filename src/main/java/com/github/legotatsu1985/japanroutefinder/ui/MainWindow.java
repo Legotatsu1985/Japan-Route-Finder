@@ -134,32 +134,12 @@ public class MainWindow extends JFrame {
             this.destICAOField.setText(null);
             this.resultRouteTextArea.setText(null);
         });
-        this.searchRouteButton.addActionListener(_ -> {
-            String xlsxFilePath = this.xlsxFilePathField.getText();
-            String originICAO = this.originICAOField.getText().trim();
-            String destICAO = this.destICAOField.getText().trim();
+        this.originICAOField.addActionListener(_ -> searchRoute());
 
-            RouteFinder routeFinder = new RouteFinder(xlsxFilePath, originICAO, destICAO);
-            String route;
-            String remarks;
-            try {
-                routeFinder.open();
-                route = routeFinder.findRoute();
-                remarks = routeFinder.findRouteRemarks();
-                routeFinder.close();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            if (route != null && !route.isEmpty()) {
-                this.resultRouteTextArea.setText(route);
-            } else {
-                this.resultRouteTextArea.setText(App.LANG.getText("main_searchRouteNotFound"));
-            }
-            if (remarks != null && !remarks.isEmpty()) {
-                this.resultRouteRemarksTextArea.setText(remarks);
-            }
+        this.destICAOField.addActionListener(_ -> searchRoute());
 
-        });
+        this.searchRouteButton.addActionListener(_ -> searchRoute());
+
         this.exitButton.addActionListener(_ -> {
             String xlsxFilePath = this.xlsxFilePathField.getText();
             boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
@@ -167,5 +147,30 @@ public class MainWindow extends JFrame {
             ButtonActions.exitApp();
         });
         this.appSettingsButton.addActionListener(_ -> ButtonActions.openSettings());
+    }
+    private void searchRoute() {
+        String xlsxFilePath = this.xlsxFilePathField.getText();
+        String originICAO = this.originICAOField.getText().trim();
+        String destICAO = this.destICAOField.getText().trim();
+
+        RouteFinder routeFinder = new RouteFinder(xlsxFilePath, originICAO, destICAO);
+        String route;
+        String remarks;
+        try {
+            routeFinder.open();
+            route = routeFinder.findRoute();
+            remarks = routeFinder.findRouteRemarks();
+            routeFinder.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (route != null && !route.isEmpty()) {
+            this.resultRouteTextArea.setText(route);
+        } else {
+            this.resultRouteTextArea.setText(App.LANG.getText("main_searchRouteNotFound"));
+        }
+        if (remarks != null && !remarks.isEmpty()) {
+            this.resultRouteRemarksTextArea.setText(remarks);
+        }
     }
 }

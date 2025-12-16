@@ -60,6 +60,19 @@ public class FilesController {
             throw new IllegalStateException("Properties object or file path is null.");
         }
     }
+    public int getPropertyAsInt(String key) {
+        String value = getProperty(key);
+        if (value != null) {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing property value to int: " + e.getMessage());
+            }
+        } else {
+            throw new IllegalStateException("Properties object or file path is null.");
+        }
+        return 0;
+    }
     public void saveProperty(String key, String value) throws Exception {
         if (this.properties != null && this.filePathString != null) {
             if (Files.exists(this.filePath)) {
@@ -80,6 +93,9 @@ public class FilesController {
         } else {
             throw new IllegalStateException("Properties object or file path is null.");
         }
+    }
+    public void saveProperty(String key, int value) throws Exception {
+        saveProperty(key, Integer.toString(value));
     }
     public void removeProperty(String key) throws Exception {
         if (this.properties != null && this.filePathString != null) {

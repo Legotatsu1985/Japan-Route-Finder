@@ -1,13 +1,13 @@
 package com.github.legotatsu1985.japanroutefinder.ui;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.util.FilesController;
+import com.formdev.flatlaf.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SettingsWindow extends JDialog {
-    private static final String[] LANGUAGES = {"English", "Japanese"};
+    private static final String[] LANGUAGES = {"English", "日本語"};
     private static final String[] LANG_CODES = {"en", "ja"};
     private static final String[] WINDOW_STYLES = {"Light", "Dark", "IntelliJ", "Darcula"};
 
@@ -51,7 +51,7 @@ public class SettingsWindow extends JDialog {
         this.langComboBox.setSelectedIndex(getLangIndex(App.FILES_CONTROLLER.getProperty("lang")));
         this.styleComboBox = new JComboBox<>(WINDOW_STYLES);
         this.styleComboBox.setBounds(220, 40, 150, 20);
-        this.styleComboBox.setEnabled(false); // Disabled until saving mechanism is implemented.
+        this.styleComboBox.setSelectedIndex(App.FILES_CONTROLLER.getPropertyAsInt("style"));
 
         /*
         this.langEnButton = new JRadioButton(App.LANG.getText("settings_labelLangEn"));
@@ -96,28 +96,14 @@ public class SettingsWindow extends JDialog {
 
         this.saveButton.addActionListener(_ -> {
             String selectedLangCode = LANG_CODES[this.langComboBox.getSelectedIndex()];
+            int selectedStyleIndex = this.styleComboBox.getSelectedIndex();
             try {
                 App.FILES_CONTROLLER.saveProperty("lang", selectedLangCode);
+                App.FILES_CONTROLLER.saveProperty("style", selectedStyleIndex);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            /*
-            String selectedLang = "";
-            if (this.langEnButton.isSelected()) {
-                selectedLang = "en";
-                FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "en");
-            } else if (this.langJaButton.isSelected()) {
-                selectedLang = "ja";
-                FilesController.saveProperty(APP_CONFIG_PROPERTIES_PATH, "lang", "ja");
-            }
-            if (langTypeFromCfg != null && !langTypeFromCfg.equals(selectedLang)) {
-                JOptionPane.showMessageDialog(this, App.LANG.getText("settings_langChangedRelaunchRequired"), App.LANG.getText("settings_langChangedTitle"), JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                ButtonActions.exitApp();
-            } else {
-                dispose();
-            }
-             */
+            App.updateLookAndFeel();
             dispose();
         });
         this.cancelButton.addActionListener(_ -> dispose());
@@ -129,5 +115,14 @@ public class SettingsWindow extends JDialog {
             }
         }
         return 0; // Default to English if not found
+    }
+    public static LookAndFeel getWindowStyle() {
+        int styleIndex = App.FILES_CONTROLLER.getPropertyAsInt("style");
+        switch (styleIndex) {
+            case 1 -> {return new FlatDarkLaf();}
+            case 2 -> {return new FlatIntelliJLaf();}
+            case 3 -> {return new FlatDarculaLaf();}
+            default -> {return new FlatLightLaf();}
+        }
     }
 }
