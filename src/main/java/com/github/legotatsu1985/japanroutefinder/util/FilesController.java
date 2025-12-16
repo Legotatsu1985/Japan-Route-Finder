@@ -24,6 +24,7 @@ public class FilesController {
     public void initProperties() {
         if (this.properties != null && this.filePathString != null) {
             this.properties.setProperty("lang", "en");
+            this.properties.setProperty("style", "0");
             try (FileOutputStream output = new FileOutputStream(this.filePathString)) {
                 this.properties.store(output, "Japan Route Finder Configuration");
             } catch (IOException e) {
