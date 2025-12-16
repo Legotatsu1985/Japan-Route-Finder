@@ -32,5 +32,23 @@
         "description": "Some logging dependencies were not added to the classpath and pom.xml."
       }
     ]
+  },
+  "1.1.0": {
+    "added": [
+      {
+        "date": "2025-12-16",
+        "description": "Added window style setting."
+      }
+    ],
+    "update": [
+      {
+        "date": "2025-12-02",
+        "description": "Entire route finder updated for more efficient and accurate results."
+      },
+      {
+        "date": "2025-12-16",
+        "description": "Changed the setting selection method from radio buttons to a dropdown menu for better usability."
+      }
+    ]
   }
 }
