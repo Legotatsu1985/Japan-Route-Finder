@@ -7,10 +7,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class RouteFinder {
     private static final int DOMESTIC_SHEET_INDEX = 1;     // 国内線シートのインデックス
-    private static final int ORIGIN_COLUMN_INDEX = 1;      // 出発空港の列インデックス
-    private static final int DESTINATION_COLUMN_INDEX = 2; // 到着空港の列インデックス
-    private static final int ROUTE_COLUMN_INDEX = 5;       // ルートの列インデックス
-    private static final int REMARKS_COLUMN_INDEX = 4;     // 備考の列インデックス
+    private static final int ORIGIN_COLUMN_INDEX = 2;      // 出発空港の列インデックス
+    private static final int DESTINATION_COLUMN_INDEX = 3; // 到着空港の列インデックス
+    private static final int ROUTE_COLUMN_INDEX = 6;       // ルートの列インデックス
+    private static final int REMARKS_COLUMN_INDEX = 5;     // 備考の列インデックス
     private static final String REGEX_E = "only for pre-coordination flight";
     private static final String REGEX = REGEX_E + "$";
     private String xlsxFilePath;
