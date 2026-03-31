@@ -1,13 +1,15 @@
 package com.github.legotatsu1985.japanroutefinder.ui.buttons;
 
-import com.github.legotatsu1985.japanroutefinder.App;
 import com.github.legotatsu1985.japanroutefinder.ui.SettingsWindow;
-import com.github.legotatsu1985.japanroutefinder.util.FilesController;
+import com.github.legotatsu1985.japanroutefinder.util.PropertyManager;
 
+@Deprecated
 public class ButtonActions {
+    @Deprecated
     public static void exitApp() {
         System.exit(0);
     }
+    @Deprecated
     public static void openSettings() {
         try {
             SettingsWindow settingsWindow = new SettingsWindow();
@@ -16,12 +18,13 @@ public class ButtonActions {
             System.err.println("Error opening settings window: " + e.getMessage());
         }
     }
+    @Deprecated
     public static void saveXlsxFilePath(String filePath, String xlsxPath, boolean checkboxState) {
         String xlsxFilePathKey = "xlsxFilePath";
         if (checkboxState) {
             if (xlsxPath != null && !xlsxPath.isEmpty()) {
                 try {
-                    App.FILES_CONTROLLER.saveProperty(xlsxFilePathKey, xlsxPath);
+                    PropertyManager.save(xlsxFilePathKey, xlsxPath);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -30,7 +33,7 @@ public class ButtonActions {
             }
         } else {
             try {
-                App.FILES_CONTROLLER.removeProperty(xlsxFilePathKey);
+                PropertyManager.remove(xlsxFilePathKey);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
