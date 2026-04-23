@@ -2,6 +2,8 @@ package com.github.legotatsu1985.japanroutefinder.ui;
 
 import com.github.legotatsu1985.japanroutefinder.App;
 import com.formdev.flatlaf.*;
+import com.github.legotatsu1985.japanroutefinder.util.PropertyManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +25,7 @@ public class SettingsWindow extends JDialog {
     private JComboBox<String> styleComboBox;
 
     public SettingsWindow() {
-        super((JFrame) null, App.LANG.getText("settings_windowTitle"), true);
+        super((JFrame) null, App.LANG_HANDLER.getString("settings_windowTitle"), true);
         this.setSize(400, 300);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -35,23 +37,23 @@ public class SettingsWindow extends JDialog {
         this.mainPanel.setLayout(null);
 
         this.langLabel = new JLabel();
-        this.langLabel.setText(App.LANG.getText("settings_labelLang"));
+        this.langLabel.setText(App.LANG_HANDLER.getString("settings_labelLang"));
         this.langLabel.setBounds(10, 10, 200, 20);
         this.styleLabel = new JLabel();
-        this.styleLabel.setText(App.LANG.getText("settings_labelStyle"));
+        this.styleLabel.setText(App.LANG_HANDLER.getString("settings_labelStyle"));
         this.styleLabel.setBounds(10, 40, 200, 20);
 
-        this.saveButton = new JButton (App.LANG.getText("settings_saveButton"));
+        this.saveButton = new JButton (App.LANG_HANDLER.getString("settings_saveButton"));
         this.saveButton.setBounds(100, 225, 100, 30);
-        this.cancelButton = new JButton(App.LANG.getText("settings_cancelButton"));
+        this.cancelButton = new JButton(App.LANG_HANDLER.getString("settings_cancelButton"));
         this.cancelButton.setBounds(200, 225, 100, 30);
 
         this.langComboBox = new JComboBox<>(LANGUAGES);
         this.langComboBox.setBounds(220, 10, 150, 20);
-        this.langComboBox.setSelectedIndex(getLangIndex(App.FILES_CONTROLLER.getProperty("lang")));
+        this.langComboBox.setSelectedIndex(getLangIndex(App.CFG.getLangCode()));
         this.styleComboBox = new JComboBox<>(WINDOW_STYLES);
         this.styleComboBox.setBounds(220, 40, 150, 20);
-        this.styleComboBox.setSelectedIndex(App.FILES_CONTROLLER.getPropertyAsInt("style"));
+        this.styleComboBox.setSelectedIndex(App.CFG.getStyleInt());
 
         /*
         this.langEnButton = new JRadioButton(App.LANG.getText("settings_labelLangEn"));
@@ -98,12 +100,15 @@ public class SettingsWindow extends JDialog {
             String selectedLangCode = LANG_CODES[this.langComboBox.getSelectedIndex()];
             int selectedStyleIndex = this.styleComboBox.getSelectedIndex();
             try {
-                App.FILES_CONTROLLER.saveProperty("lang", selectedLangCode);
-                App.FILES_CONTROLLER.saveProperty("style", selectedStyleIndex);
+                /*App.FILES_CONTROLLER.saveProperty("lang", selectedLangCode);
+                App.FILES_CONTROLLER.saveProperty("style", selectedStyleIndex);*/
+                PropertyManager.save("lang", selectedLangCode);
+                PropertyManager.save("style", selectedStyleIndex);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            App.updateLookAndFeel();
+            App.CFG.reload();
+            App.UI.updateLookAndFeel();
             dispose();
         });
         this.cancelButton.addActionListener(_ -> dispose());
@@ -116,8 +121,11 @@ public class SettingsWindow extends JDialog {
         }
         return 0; // Default to English if not found
     }
+
+    @Deprecated
+    @NotNull
     public static LookAndFeel getWindowStyle() {
-        int styleIndex = App.FILES_CONTROLLER.getPropertyAsInt("style");
+        int styleIndex = App.CFG.getStyleInt();
         switch (styleIndex) {
             case 1 -> {return new FlatDarkLaf();}
             case 2 -> {return new FlatIntelliJLaf();}
