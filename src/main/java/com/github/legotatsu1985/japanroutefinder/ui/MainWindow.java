@@ -1,176 +1,98 @@
 package com.github.legotatsu1985.japanroutefinder.ui;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.util.FilesController;
-// import com.github.legotatsu1985.japanroutefinder.modules.RouteFinder;
-import com.github.legotatsu1985.japanroutefinder.ui.buttons.ButtonActions;
-import com.github.legotatsu1985.japanroutefinder.util.RouteFinder;
+import com.github.legotatsu1985.japanroutefinder.handlers.RouteHandler;
+import com.github.legotatsu1985.japanroutefinder.ui.menubars.MainMenuBar;
+import com.github.legotatsu1985.japanroutefinder.ui.panels.*;
+import com.github.legotatsu1985.japanroutefinder.util.Route;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.util.List;
 
 public class MainWindow extends JFrame {
-    private JPanel mainPanel;
-    private Border border;
-    private JLabel xlsxFileLabel;
-    private JLabel originICAOLabel;
-    private JLabel destICAOLabel;
-    private JLabel resultRouteRemarksLabel;
-    private JLabel resultRouteLabel;
-    private JTextArea resultRouteRemarksTextArea;
-    private JTextArea resultRouteTextArea;
-    private JTextField xlsxFilePathField;
-    private JTextField originICAOField;
-    private JTextField destICAOField;
-    private JCheckBox saveXlsxFilePathCheckBox;
-    private JButton chooseXlsxButton;
-    private JButton resetRouteButton;
-    private JButton searchRouteButton;
-    private JButton appSettingsButton;
-    private JButton exitButton;
+    private JPanel basePanel;
+    private SearchPanel searchPanel;
+    private RouteResultPanel routeResultPanel;
+    private JScrollPane scrollPane;
+    private MainMenuBar mainMenuBar;
 
     public MainWindow() {
-        this.setTitle(App.LANG.getText("main_windowTitle"));
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        super("Japan Route Finder");
         this.setSize(1000, 600);
-        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
-        this.mainPanel = new JPanel();
-        this.mainPanel.setLayout(null);
-
-        this.border = new BevelBorder(BevelBorder.LOWERED);
-
-        this.xlsxFileLabel = new JLabel(App.LANG.getText("main_labelXlsxPath"));
-        this.xlsxFileLabel.setBounds(10, 10, 100, 20);
-        this.originICAOLabel = new JLabel(App.LANG.getText("main_labelOrigin"));
-        this.originICAOLabel.setBounds(10, 40, 80, 20);
-        this.destICAOLabel = new JLabel(App.LANG.getText("main_labelDes"));
-        this.destICAOLabel.setBounds(10, 70, 80, 20);
-        this.resultRouteRemarksLabel = new JLabel(App.LANG.getText("main_labelRouteRemark"));
-        this.resultRouteRemarksLabel.setBounds(10, 140, 190, 20);
-        this.resultRouteLabel = new JLabel(App.LANG.getText("main_labelRoute"));
-        this.resultRouteLabel.setBounds(210, 140, 760, 20);
-
-        this.resultRouteRemarksTextArea = new JTextArea();
-        this.resultRouteRemarksTextArea.setBounds(10,160, 190, 280);
-        this.resultRouteRemarksTextArea.setEditable(false);
-        this.resultRouteRemarksTextArea.setBorder(this.border);
-        this.resultRouteTextArea = new JTextArea();
-        this.resultRouteTextArea.setBounds(210, 160, 760, 280);
-        this.resultRouteTextArea.setEditable(false);
-        this.resultRouteTextArea.setBorder(this.border);
-
-        this.xlsxFilePathField = new JTextField();
-        this.xlsxFilePathField.setBounds(100, 10, 300, 20);
-        this.xlsxFilePathField.setBorder(this.border);
-        this.originICAOField = new JTextField();
-        this.originICAOField.setBounds(100, 40, 100, 20);
-        this.originICAOField.setBorder(this.border);
-        this.destICAOField = new JTextField();
-        this.destICAOField.setBounds(100, 70, 100, 20);
-        this.destICAOField.setBorder(this.border);
-
-        this.saveXlsxFilePathCheckBox = new JCheckBox(App.LANG.getText("main_saveXlsxFilePath"));
-        this.saveXlsxFilePathCheckBox.setBounds(520, 10, 150, 20);
-
-        this.chooseXlsxButton = new JButton(App.LANG.getText("main_chooseXlsxButton"));
-        this.chooseXlsxButton.setBounds(410, 10, 100, 20);
-        this.resetRouteButton = new JButton(App.LANG.getText("main_resetRouteButton"));
-        this.resetRouteButton.setBounds(10, 100, 90, 30);
-        this.searchRouteButton = new JButton(App.LANG.getText("main_searchRouteButton"));
-        this.searchRouteButton.setBounds(100, 100, 100, 30);
-        this.appSettingsButton = new JButton(App.LANG.getText("main_labelSettings"));
-        this.appSettingsButton.setBounds(500, 500, 100, 30);
-        this.exitButton = new JButton(App.LANG.getText("main_exit"));
-        this.exitButton.setBounds(400, 500, 100, 30);
-
-        this.mainPanel.add(this.xlsxFileLabel);
-        this.mainPanel.add(this.xlsxFilePathField);
-        this.mainPanel.add(this.chooseXlsxButton);
-        this.mainPanel.add(this.saveXlsxFilePathCheckBox);
-        this.mainPanel.add(this.originICAOLabel);
-        this.mainPanel.add(this.destICAOLabel);
-        this.mainPanel.add(this.resultRouteRemarksLabel);
-        this.mainPanel.add(this.resultRouteLabel);
-        this.mainPanel.add(this.originICAOField);
-        this.mainPanel.add(this.destICAOField);
-        this.mainPanel.add(this.resetRouteButton);
-        this.mainPanel.add(this.searchRouteButton);
-        this.mainPanel.add(this.resultRouteRemarksTextArea);
-        this.mainPanel.add(this.resultRouteTextArea);
-        this.mainPanel.add(this.appSettingsButton);
-        this.mainPanel.add(this.exitButton);
-
-        this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
-
-        // Load saved XLSX file path if it exists
-        if (App.FILES_CONTROLLER.isFileExists()) {
-            String savedXlsxFilePath = App.FILES_CONTROLLER.getProperty("xlsxFilePath");
-            if (savedXlsxFilePath != null && !savedXlsxFilePath.isEmpty()) {
-                this.xlsxFilePathField.setText(savedXlsxFilePath);
-                this.saveXlsxFilePathCheckBox.setSelected(true);
-            } else {
-                this.saveXlsxFilePathCheckBox.setSelected(false);
-            }
-        }
-
-        // Button actions
-        this.chooseXlsxButton.addActionListener(_ -> {
-            String xlsxFilePath = FilesController.chooseXlsxFile();
-            if (xlsxFilePath != null) {
-                this.xlsxFilePathField.setText(xlsxFilePath);
-            }
-        });
-        this.saveXlsxFilePathCheckBox.addActionListener(_ -> {
-            String xlsxFilePath = this.xlsxFilePathField.getText();
-            boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
-            ButtonActions.saveXlsxFilePath(App.APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
-        });
-        this.resetRouteButton.addActionListener(_ -> {
-            //xlsxFilePathField.setText("");
-            this.originICAOField.setText(null);
-            this.destICAOField.setText(null);
-            this.resultRouteTextArea.setText(null);
-        });
-        this.originICAOField.addActionListener(_ -> searchRoute());
-
-        this.destICAOField.addActionListener(_ -> searchRoute());
-
-        this.searchRouteButton.addActionListener(_ -> searchRoute());
-
-        this.exitButton.addActionListener(_ -> {
-            String xlsxFilePath = this.xlsxFilePathField.getText();
-            boolean isChecked = this.saveXlsxFilePathCheckBox.isSelected();
-            ButtonActions.saveXlsxFilePath(App.APP_CONFIG_PROPERTIES_PATH, xlsxFilePath, isChecked);
-            ButtonActions.exitApp();
-        });
-        this.appSettingsButton.addActionListener(_ -> ButtonActions.openSettings());
+        this.setResizable(false);
+        initComponents();
     }
-    private void searchRoute() {
-        String xlsxFilePath = this.xlsxFilePathField.getText();
-        String originICAO = this.originICAOField.getText().trim();
-        String destICAO = this.destICAOField.getText().trim();
+    private void initComponents() {
+        // Panels
+        this.basePanel = new JPanel();
+        // this.basePanel.setLayout(new BoxLayout(this.basePanel, BoxLayout.Y_AXIS));
+        this.basePanel.setLayout(null);
+        this.searchPanel = new SearchPanel(this);
+        this.searchPanel.setBounds(0, 0, 985, 150);
 
-        RouteFinder routeFinder = new RouteFinder(xlsxFilePath, originICAO, destICAO);
-        String route;
-        String remarks;
-        try {
-            routeFinder.open();
-            route = routeFinder.findRoute();
-            remarks = routeFinder.findRouteRemarks();
-            routeFinder.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        // Menu Bar
+        this.mainMenuBar = new MainMenuBar();
+        this.setJMenuBar(this.mainMenuBar);
+
+        // Scroll Pane
+        this.scrollPane = new JScrollPane();
+        this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        // Add Panels to Frame
+        this.basePanel.add(this.searchPanel);
+        this.basePanel.add(this.scrollPane);
+        this.add(this.basePanel);
+    }
+    public void searchRoute() {
+        if (this.routeResultPanel != null) {
+            this.basePanel.remove(this.routeResultPanel);
+            this.revalidate();
+            this.repaint();
         }
-        if (route != null && !route.isEmpty()) {
-            this.resultRouteTextArea.setText(route);
+
+        String origin = this.searchPanel.getOrigin();
+        String destination = this.searchPanel.getDestination();
+        if (origin == null || destination == null || origin.isEmpty() || destination.isEmpty()) {
+            App.UI.popupError(this, new IllegalStateException("Origin or destination cannot be null"));
+            return;
+        }
+        System.out.println("Start searching for: " + origin + " -> " + destination + "...");
+        RouteHandler rh = new RouteHandler(this, App.CFG.getXlsxFilePath());
+        rh.find(origin, destination);
+        List<Route> routes = rh.getAllRoutes();
+        if (rh.getRouteCount() == 0 || routes.isEmpty()) {
+            App.UI.popupError(this, new IllegalStateException("No routes found"));
+            return;
+        }
+        this.routeResultPanel = new RouteResultPanel(routes);
+        this.scrollPane.setViewportView(this.routeResultPanel);
+        this.scrollPane.setBounds(0, 150, 985, 410);
+        this.routeResultPanel.revalidate();
+        this.routeResultPanel.repaint();
+        this.revalidate();
+        this.repaint();
+    }
+
+    @Nullable
+    private String chooseXlsxFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Excel File");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Excel File", "xlsx", "xls"));
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
         } else {
-            this.resultRouteTextArea.setText(App.LANG.getText("main_searchRouteNotFound"));
-        }
-        if (remarks != null && !remarks.isEmpty()) {
-            this.resultRouteRemarksTextArea.setText(remarks);
+            return null; // User canceled the operation
         }
     }
 }
