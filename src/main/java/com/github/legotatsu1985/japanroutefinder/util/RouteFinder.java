@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import org.apache.poi.ss.usermodel.*;
 import org.jetbrains.annotations.Nullable;
 
+@Deprecated
 public class RouteFinder {
     private static final int DOMESTIC_SHEET_INDEX = 1;     // 国内線シートのインデックス
     private static final int ORIGIN_COLUMN_INDEX = 2;      // 出発空港の列インデックス
@@ -24,11 +25,14 @@ public class RouteFinder {
     private String formattedRoutes;
     private String formattedRemarks;
 
+    @Deprecated
     public RouteFinder(String xlsxFilePath, String originICAO, String destICAO) {
         this.xlsxFilePath = xlsxFilePath;
         this.originICAO = originICAO;
         this.destICAO = destICAO;
     }
+
+    @Deprecated
     public void open() throws Exception {
         if (this.xlsxFilePath != null && !this.xlsxFilePath.isEmpty()) {
             this.fileInputStream = new FileInputStream(this.xlsxFilePath);
@@ -38,6 +42,8 @@ public class RouteFinder {
             throw new IllegalStateException("XLSX file path is null or empty.");
         }
     }
+
+    @Deprecated
     public void close() throws Exception {
         if (this.workbook != null) {
             this.workbook.close();
@@ -46,6 +52,8 @@ public class RouteFinder {
             this.fileInputStream.close();
         }
     }
+
+    @Deprecated
     @Nullable
     public String findRoute() {
         if (this.domesticSheet == null) {
@@ -79,6 +87,8 @@ public class RouteFinder {
             return null;
         }
     }
+
+    @Deprecated
     @Nullable
     public String findRouteRemarks() {
         if (this.domesticSheet == null) {

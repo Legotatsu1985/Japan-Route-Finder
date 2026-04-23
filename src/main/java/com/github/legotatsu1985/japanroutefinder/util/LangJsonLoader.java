@@ -14,11 +14,13 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+@Deprecated
 public class LangJsonLoader {
     private static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
     private static final String BASE_PATH = "lang/";
     private Map<String, String> messages;
 
+    @Deprecated
     public LangJsonLoader(String langCode) {
         String filePath = BASE_PATH + langCode + ".json";
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(filePath)) {
@@ -30,12 +32,14 @@ public class LangJsonLoader {
             throw new UncheckedIOException(e);
         }
     }
+    @Deprecated
     public String getText(@NotNull String key) {
         return messages.getOrDefault(key, "[" + key + "]");
     }
 
+    @Deprecated
     public static String checkLang() {
-        String en = "en";
+        /*String en = "en";
         String ja = "ja";
         if (App.FILES_CONTROLLER.isFileExists()) {
             String lang = App.FILES_CONTROLLER.getProperty("lang");
@@ -47,7 +51,8 @@ public class LangJsonLoader {
         } else {
             System.err.println("Properties file not found, defaulting to English.");
             return en;
-        }
+        }*/
+        return App.CFG.getLangCode();
     }
 
     /* JSONファイルを読み込む古いコード

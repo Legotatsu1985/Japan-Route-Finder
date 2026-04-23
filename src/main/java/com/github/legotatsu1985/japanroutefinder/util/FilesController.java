@@ -12,15 +12,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.swing.*;
 
+@Deprecated
 public class FilesController {
     private Properties properties;
     private String filePathString;
     private Path filePath;
+
+    @Deprecated
     public FilesController(String filePath) {
         this.properties = new Properties();
         this.filePathString = filePath;
         this.filePath = Paths.get(filePath);
     }
+
+    @Deprecated
     public void initProperties() {
         if (this.properties != null && this.filePathString != null) {
             this.properties.setProperty("lang", "en");
@@ -34,6 +39,8 @@ public class FilesController {
             throw new IllegalStateException("Properties object or file path is null.");
         }
     }
+
+    @Deprecated
     public boolean isFileExists() {
         if (this.properties != null && this.filePathString != null) {
             try (FileInputStream input = new FileInputStream(this.filePathString)) {
@@ -47,6 +54,8 @@ public class FilesController {
             throw new IllegalStateException("Properties object or file path is null.");
         }
     }
+
+    @Deprecated
     @Nullable
     public String getProperty(String key) {
         if (this.properties != null && this.filePathString != null) {
@@ -61,6 +70,8 @@ public class FilesController {
             throw new IllegalStateException("Properties object or file path is null.");
         }
     }
+
+    @Deprecated
     public int getPropertyAsInt(String key) {
         String value = getProperty(key);
         if (value != null) {
@@ -74,6 +85,8 @@ public class FilesController {
         }
         return 0;
     }
+
+    @Deprecated
     public void saveProperty(String key, String value) throws Exception {
         if (this.properties != null && this.filePathString != null) {
             if (Files.exists(this.filePath)) {
@@ -95,9 +108,13 @@ public class FilesController {
             throw new IllegalStateException("Properties object or file path is null.");
         }
     }
+
+    @Deprecated
     public void saveProperty(String key, int value) throws Exception {
         saveProperty(key, Integer.toString(value));
     }
+
+    @Deprecated
     public void removeProperty(String key) throws Exception {
         if (this.properties != null && this.filePathString != null) {
             if (Files.exists(filePath)) {
@@ -187,6 +204,8 @@ public class FilesController {
             }
         }
     }
+
+    @Deprecated
     public static String chooseXlsxFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select Excel File");
