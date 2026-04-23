@@ -15,6 +15,7 @@
   "main_searchRouteButton": "検索",
   "main_searchRouteNotFound": "ルートが見つかりませんでした。",
   "main_searchRouteSheetNotFound": "xlsxファイルにシートが見つかりませんでした。",
+  "main_switchRouteButton": "ルート切り替え",
   "main_windowTitle": "Japan Route Finder",
   "settings_cancelButton": "キャンセル",
   "settings_labelLang": "言語",
