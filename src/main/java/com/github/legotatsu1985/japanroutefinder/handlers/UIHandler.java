@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class UIHandler {
@@ -48,6 +49,22 @@ public class UIHandler {
         if (this.mainWindow != null && this.mainWindow.isVisible()) {
             this.mainWindow.setDevelopmentMode(App.CFG.isDevelopmentMode());
         }
+    }
+
+    @Nullable
+    public String chooseFile(Component parent, @NotNull String title, @NotNull String description, @NotNull String... extensions) {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle(title);
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setMultiSelectionEnabled(false);
+        fc.addChoosableFileFilter(new FileNameExtensionFilter(description, extensions));
+
+        int result = fc.showOpenDialog(parent);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return fc.getSelectedFile().getAbsolutePath();
+        }
+        return null;
     }
 
     public void popupError(@Nullable Component parent, String title, String message) {
