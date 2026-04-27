@@ -92,6 +92,8 @@ public class SettingsWindow extends JDialog implements JFrameBuildCheck {
         this.saveButton.setActionCommand("save");
         this.cancelButton.addActionListener(this);
         this.cancelButton.setActionCommand("cancel");
+        this.selectExcelPathButton.addActionListener(this);
+        this.selectExcelPathButton.setActionCommand("selectExcelPath");
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -104,6 +106,11 @@ public class SettingsWindow extends JDialog implements JFrameBuildCheck {
                 App.UI.updateDevelopmentMode();
                 dispose();
             case "cancel": dispose(); break;
+            case "selectExcelPath":
+                String selectedExcelPath = App.UI.chooseFile(this, "Select Excel File", "Excel File", "xlsx", "xls");
+                if (selectedExcelPath == null) return;
+                this.excelPathField.setText(selectedExcelPath);
+                break;
             default: break;
         }
     }
