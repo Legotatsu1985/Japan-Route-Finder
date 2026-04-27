@@ -10,6 +10,8 @@ import java.awt.*;
 
 public class UIHandler {
     private LookAndFeel laf;
+    private MainWindow mainWindow;
+    private SettingsWindow settingsWindow;
 
     public UIHandler() {
         this.laf = App.CFG.getWindowStyle();
@@ -20,9 +22,15 @@ public class UIHandler {
         }
     }
 
-    public void openMain() {SwingUtilities.invokeLater(() -> new MainWindow().setVisible(true));}
+    public void openMain() {
+        this.mainWindow = new MainWindow();
+        SwingUtilities.invokeLater(() -> this.mainWindow.setVisible(true));
+    }
 
-    public void openSettings() {SwingUtilities.invokeLater(() -> new SettingsWindow().setVisible(true));}
+    public void openSettings() {
+        this.settingsWindow = new SettingsWindow(this.mainWindow);
+        SwingUtilities.invokeLater(() -> this.settingsWindow.setVisible(true));
+    }
 
     public void updateLookAndFeel() {
         this.laf = App.CFG.getWindowStyle();
