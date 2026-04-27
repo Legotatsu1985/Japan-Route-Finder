@@ -1,5 +1,6 @@
 {
   "1.0.0": {
+    "release_type": "major",
     "added": [
       {
       "date": "2025-07-18",
@@ -18,6 +19,7 @@
     ]
   },
   "1.0.1": {
+    "release_type": "minor",
     "fixed": [
       {
         "date": "2025-08-04",
@@ -34,6 +36,7 @@
     ]
   },
   "1.1.0": {
+    "release_type": "major",
     "added": [
       {
         "date": "2025-12-16",
@@ -48,6 +51,48 @@
       {
         "date": "2025-12-16",
         "description": "Changed the setting selection method from radio buttons to a dropdown menu for better usability."
+      }
+    ]
+  },
+  "1.1.1": {
+    "release_type": "minor",
+    "fixed": [
+      {
+        "date": "2026-01-22",
+        "description": "It could not read route data because of columns are shifted in new Excel data."
+      }
+    ]
+  },
+  "1.2.0": {
+    "release_type": "major",
+    "updated": [
+      {
+        "date": "2026-04-24",
+        "description": "Entire UI has been rebuilt."
+      }
+    ],
+    "changed": [
+      {
+        "date": "2026-04-24",
+        "description": "Settings has been moved to MenuBar option."
+      },
+      {
+        "date": "2026-04-24",
+        "description": "Excel file path field has been moved to settings dialog."
+      }
+    ],
+    "added": [
+      {
+        "date": "2026-04-24",
+        "description": "Added a MenuBar."
+      },
+      {
+        "date": "2026-04-24",
+        "description": "Origin and Destination airport swap button has been added."
+      },
+      {
+        "date": "2026-04-24",
+        "description": "Added Development Mode."
       }
     ]
   }
