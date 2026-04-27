@@ -1,6 +1,7 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
 import com.github.legotatsu1985.japanroutefinder.App;
+import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
 import com.github.legotatsu1985.japanroutefinder.ui.MainWindow;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SearchPanel extends JPanel implements ActionListener {
+public class SearchPanel extends JPanel implements JFrameBuildCheck {
     private JFrame parent;
 
     private BevelBorder fieldBorder;
@@ -23,13 +24,13 @@ public class SearchPanel extends JPanel implements ActionListener {
         // this.setMaximumSize(new Dimension(Short.MAX_VALUE, (Short.MAX_VALUE / 2)));
         this.setLayout(null);
         // this.setBackground(Color.PINK);
-        this.setBorder(new LineBorder(Color.RED));
         this.initComponents();
         this.addAll();
         this.addListeners();
+        setDevelopmentMode(App.CFG.isDevelopmentMode());
     }
 
-    private void initComponents() {
+    public void initComponents() {
         this.fieldBorder = new BevelBorder(BevelBorder.LOWERED);
 
         this.originLabel = new JLabel(App.LANG_HANDLER.getString("main_labelOrigin"));
@@ -52,7 +53,7 @@ public class SearchPanel extends JPanel implements ActionListener {
         this.searchButton.setBounds(100, 110, 100, 30);
     }
 
-    private void addAll() {
+    public void addAll() {
         this.add(this.originLabel);
         this.add(this.destinationLabel);
         this.add(this.originField);
@@ -62,7 +63,7 @@ public class SearchPanel extends JPanel implements ActionListener {
         this.add(this.searchButton);
     }
 
-    private void addListeners() {
+    public void addListeners() {
         this.originField.addActionListener(this);
         this.originField.setActionCommand("search");
         this.destinationField.addActionListener(this);
@@ -103,6 +104,17 @@ public class SearchPanel extends JPanel implements ActionListener {
             default: break;
         }
     }
+
+    public void setDevelopmentMode(boolean b) {
+        if (b) {
+            this.setBorder(new LineBorder(Color.RED));
+        } else {
+            this.setBorder(null);
+        }
+        this.revalidate();
+        this.repaint();
+    }
+
     public String getOrigin() {return this.originField.getText();}
 
     public String getDestination() {return this.destinationField.getText();}

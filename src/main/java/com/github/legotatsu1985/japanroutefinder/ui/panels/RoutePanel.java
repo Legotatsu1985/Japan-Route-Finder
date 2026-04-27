@@ -1,5 +1,7 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
+import com.github.legotatsu1985.japanroutefinder.App;
+import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
 import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,9 +12,8 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class RoutePanel extends JPanel implements ActionListener {
+public class RoutePanel extends JPanel implements JFrameBuildCheck {
     private LineBorder panelBorder;
     private JTextField routeField;
     private JLabel remarkLabel, timeRestrictionLabel;
@@ -24,14 +25,14 @@ public class RoutePanel extends JPanel implements ActionListener {
         super();
         this.route = route;
         initComponents();
-        addActionListeners();
         addAll();
+        addListeners();
+        setDevelopmentMode(App.CFG.isDevelopmentMode());
     }
 
-    private void initComponents() {
+    public void initComponents() {
         this.setLayout(null);
         this.setMaximumSize(new Dimension(2000, 100));
-        this.setBorder(new LineBorder(Color.CYAN));
         // this.setBackground(Color.WHITE);
         this.routeField = new JTextField(this.route.getRoute());
         this.routeField.setBounds(5, 5, 850, 30);
@@ -45,14 +46,14 @@ public class RoutePanel extends JPanel implements ActionListener {
         this.copyRouteButton.setBounds(860, 5, 100, 30);
     }
 
-    private void addAll() {
+    public void addAll() {
         this.add(routeField);
         this.add(remarkLabel);
         this.add(timeRestrictionLabel);
         this.add(copyRouteButton);
     }
 
-    private void addActionListeners() {
+    public void addListeners() {
         this.copyRouteButton.addActionListener(this);
         this.copyRouteButton.setActionCommand("copy");
     }
@@ -68,5 +69,15 @@ public class RoutePanel extends JPanel implements ActionListener {
                 break;
             default: break;
         }
+    }
+
+    public void setDevelopmentMode(boolean b) {
+        if (b) {
+            this.setBorder(new LineBorder(Color.CYAN));
+        } else {
+            this.setBorder(new LineBorder(Color.BLACK));
+        }
+        this.revalidate();
+        this.repaint();
     }
 }

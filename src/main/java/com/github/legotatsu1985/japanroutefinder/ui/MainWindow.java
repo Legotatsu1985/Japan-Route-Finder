@@ -11,9 +11,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements JFrameBuildCheck {
     private JPanel basePanel;
     private SearchPanel searchPanel;
     private RouteResultPanel routeResultPanel;
@@ -27,8 +28,11 @@ public class MainWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         initComponents();
+        addAll();
+        addListeners();
+        setDevelopmentMode(App.CFG.isDevelopmentMode());
     }
-    private void initComponents() {
+    public void initComponents() {
         // Panels
         this.basePanel = new JPanel();
         // this.basePanel.setLayout(new BoxLayout(this.basePanel, BoxLayout.Y_AXIS));
@@ -43,7 +47,8 @@ public class MainWindow extends JFrame {
         // Scroll Pane
         this.scrollPane = new JScrollPane();
         this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
+    }
+    public void addAll() {
         // Add Panels to Frame
         this.basePanel.add(this.searchPanel);
         this.basePanel.add(this.scrollPane);
@@ -75,6 +80,17 @@ public class MainWindow extends JFrame {
         this.scrollPane.setBounds(0, 150, 985, 410);
         this.routeResultPanel.revalidate();
         this.routeResultPanel.repaint();
+        this.revalidate();
+        this.repaint();
+    }
+    public void addListeners() {}
+    public void actionPerformed(ActionEvent e) {}
+    public void setDevelopmentMode(boolean b) {
+        this.mainMenuBar.setDevelopmentMode(b);
+        this.searchPanel.setDevelopmentMode(b);
+        if (this.routeResultPanel != null && this.routeResultPanel.isVisible()) {
+            this.routeResultPanel.setDevelopmentMode(b);
+        }
         this.revalidate();
         this.repaint();
     }

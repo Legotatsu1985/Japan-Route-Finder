@@ -64,7 +64,10 @@ public class PropertyManager {
 
     public static int getInt(@NotNull String key) throws IOException, NumberFormatException {
         String value = getString(key);
-        if (value == null) throw new IOException("Property not found: " + key);
+        if (value == null) {
+            System.err.printf("No value for key: %s%n", key);
+            return -1;
+        }
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {

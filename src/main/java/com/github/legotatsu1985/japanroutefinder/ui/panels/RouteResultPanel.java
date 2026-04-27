@@ -1,15 +1,18 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
+import com.github.legotatsu1985.japanroutefinder.App;
+import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
 import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RouteResultPanel extends JPanel {
+public class RouteResultPanel extends JPanel implements JFrameBuildCheck {
     private List<RoutePanel> routePanels;
 
     public RouteResultPanel(@NotNull List<Route> routes) {
@@ -20,17 +23,32 @@ public class RouteResultPanel extends JPanel {
         }
         this.setLayout(new GridLayout(0, 1, 10, 10));
         this.setPreferredSize(new Dimension(970, routePanels.size() * 110));
-        this.setBorder(new LineBorder(Color.GREEN));
         initComponents();
         addAll();
+        addListeners();
+        setDevelopmentMode(App.CFG.isDevelopmentMode());
     }
-    private void initComponents() {this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));}
+    public void initComponents() {this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));}
 
-    private void addAll() {
+    public void addAll() {
         for (RoutePanel routePanel : routePanels) {
             this.add(routePanel);
         }
     }
 
+    public void addListeners() {}
+    public void actionPerformed(ActionEvent e) {}
+    public void setDevelopmentMode(boolean b) {
+        if (b) {
+            this.setBorder(new LineBorder(Color.GREEN));
+        } else {
+            this.setBorder(null);
+        }
+        for (RoutePanel routePanel : routePanels) {
+            routePanel.setDevelopmentMode(b);
+        }
+        this.revalidate();
+        this.repaint();
+    }
     public int getRouteCount() {return this.routePanels.size();}
 }
