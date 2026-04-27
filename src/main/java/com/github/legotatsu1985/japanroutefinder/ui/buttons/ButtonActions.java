@@ -12,7 +12,7 @@ public class ButtonActions {
     @Deprecated
     public static void openSettings() {
         try {
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow(null);
             settingsWindow.setVisible(true);
         } catch (Exception e) {
             System.err.println("Error opening settings window: " + e.getMessage());
