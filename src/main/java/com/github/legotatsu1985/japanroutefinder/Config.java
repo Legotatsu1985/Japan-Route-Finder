@@ -18,6 +18,8 @@ public class Config {
     private int styleInt;
     private LookAndFeel windowStyle;
     private @Nullable String xlsxFilePath;
+    private int developmentModeInt;
+    private boolean developmentMode;
 
     public Config(@NotNull String configFilePath) {
         CFG_PATH = Paths.get(configFilePath);
@@ -30,6 +32,7 @@ public class Config {
             Files.createFile(CFG_PATH);
             PropertyManager.save("lang", "en");
             PropertyManager.save("style", 0);
+            PropertyManager.save("devMode", 0);
         } catch (Exception e) {
             throw new RuntimeException("Error creating default config: " + e.getMessage(), e);
         }
@@ -41,6 +44,8 @@ public class Config {
             this.styleInt = PropertyManager.getInt("style");
             this.windowStyle = getLookAndFeel(this.styleInt);
             this.xlsxFilePath = PropertyManager.getString("xlsxFilePath");
+            this.developmentModeInt = PropertyManager.getInt("devMode");
+            this.developmentMode = getDevelopmentMode(this.developmentModeInt);
         } catch (Exception e) {
             throw new RuntimeException("Error loading config: " + e.getMessage(), e);
         }
@@ -57,6 +62,8 @@ public class Config {
             default -> new com.formdev.flatlaf.FlatLightLaf();
         };
     }
+
+    private boolean getDevelopmentMode(int mode) {return mode == 1;}
 
     public void saveXlsxFilePath(@NotNull String xlsxFilePath, boolean checkboxState) {
         String xlsxFilePathKey = "xlsxFilePath";
@@ -79,4 +86,5 @@ public class Config {
     public int getStyleInt() {return styleInt;}
     public LookAndFeel getWindowStyle() {return windowStyle;}
     public @Nullable String getXlsxFilePath() {return xlsxFilePath;}
+    public boolean isDevelopmentMode() {return this.developmentMode;}
 }
