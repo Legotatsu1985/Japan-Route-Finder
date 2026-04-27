@@ -44,6 +44,12 @@ public class UIHandler {
         }
     }
 
+    public void updateDevelopmentMode() {
+        if (this.mainWindow != null && this.mainWindow.isVisible()) {
+            this.mainWindow.setDevelopmentMode(App.CFG.isDevelopmentMode());
+        }
+    }
+
     public void popupError(@Nullable Component parent, String title, String message) {
         JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE);
     }
