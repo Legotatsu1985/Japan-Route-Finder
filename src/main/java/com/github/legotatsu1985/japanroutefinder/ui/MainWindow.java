@@ -95,6 +95,7 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
         this.repaint();
     }
 
+    @Deprecated
     @Nullable
     private String chooseXlsxFile() {
         JFileChooser fileChooser = new JFileChooser();
