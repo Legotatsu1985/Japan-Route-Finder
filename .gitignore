@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/artifacts
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -11,6 +12,7 @@ target/
 out/artifacts/Japan-Route-Finder.zip
 out/artifacts/Run_Archive.bat
 out/artifacts/Japan_Route_Finder_jar/Japan-Route-Finder.jar
+idea/artifacts/Japan_Route_Finder_jar.xml
 *.iws
 *.iml
 *.ipr
