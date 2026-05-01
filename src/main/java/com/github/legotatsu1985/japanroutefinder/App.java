@@ -5,7 +5,7 @@ import com.github.legotatsu1985.japanroutefinder.ui.*;
 import com.github.legotatsu1985.japanroutefinder.util.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class App {
     public static final String APP_CONFIG_PROPERTIES_PATH = "config.properties";
