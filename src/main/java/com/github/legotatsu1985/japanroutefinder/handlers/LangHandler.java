@@ -3,7 +3,7 @@ package com.github.legotatsu1985.japanroutefinder.handlers;
 import org.jetbrains.annotations.NotNull;
 
 public class LangHandler {
-    private static final String BASE_PATH = "src/main/resources/lang/";
+    private static final String BASE_PATH = "lang/";
     private JsonHandler jsonHandler;
 
     public LangHandler(@NotNull String langCode) {
