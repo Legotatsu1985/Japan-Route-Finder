@@ -3,6 +3,7 @@ package com.github.legotatsu1985.japanroutefinder;
 import com.github.legotatsu1985.japanroutefinder.handlers.*;
 import com.github.legotatsu1985.japanroutefinder.ui.*;
 import com.github.legotatsu1985.japanroutefinder.util.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -16,5 +17,8 @@ public class App {
         LANG_HANDLER = new LangHandler(langCode);
         UI = new UIHandler();
         UI.openMain();
+    }
+    public static void popUpBackgroundError(@NotNull Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "An error occurred", JOptionPane.ERROR_MESSAGE);
     }
 }
