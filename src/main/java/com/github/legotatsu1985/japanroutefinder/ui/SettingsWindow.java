@@ -124,6 +124,7 @@ public class SettingsWindow extends JDialog implements JFrameBuildCheck {
             PropertyManager.save("lang", selectedLangCode);
             PropertyManager.save("style", selectedStyleIndex);
             PropertyManager.save("devMode", devMode);
+            PropertyManager.save("xlsxFilePath", this.excelPathField.getText() != null ? this.excelPathField.getText() : "");
         } catch (Exception e) {App.UI.popupError(this, e);}
     }
 
