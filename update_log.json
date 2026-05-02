@@ -95,5 +95,14 @@
         "description": "Added Development Mode."
       }
     ]
+  },
+  "1.2.1": {
+    "release_type": "minor",
+    "fixed": [
+      {
+        "date": "2026-05-02",
+        "description": "The application does not save the Excel file path to the configuration file."
+      }
+    ]
   }
 }
