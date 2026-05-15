@@ -14,11 +14,11 @@ import java.util.List;
 public class RouteHandler {
     private JFrame parent;
 
-    private static final int ORIGIN_COLUMN = 2;
-    private static final int DESTINATION_COLUMN = 3;
-    private static final int TIME_RESTRICTION_COLUMN = 4;
-    private static final int REMARKS_COLUMN = 5;
-    private static final int ROUTE_COLUMN = 6;
+    private static final int ORIGIN_COLUMN = 1;
+    private static final int DESTINATION_COLUMN = 2;
+    private static final int TIME_RESTRICTION_COLUMN = 3;
+    private static final int REMARKS_COLUMN = 4;
+    private static final int ROUTE_COLUMN = 5;
 
     private ExcelHandler excelHandler;
     private Sheet excelSheet;
