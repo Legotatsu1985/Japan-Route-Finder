@@ -41,9 +41,11 @@ public class ExcelHandler {
     public Sheet getSheet(@NotNull String sheetName) {
         if (this.excelWorkbook == null) {
             App.UI.popupError(null, new IllegalStateException("Excel workbook is not opened. Please call open() method first."));
+            return null;
         }
         if (this.sheets == null || this.sheets.isEmpty()) {
             App.UI.popupError(null, new IllegalStateException("No sheets found in the workbook."));
+            return null;
         }
 
         for (Sheet sheet : this.sheets) {

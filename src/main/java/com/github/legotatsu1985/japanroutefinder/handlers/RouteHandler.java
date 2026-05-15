@@ -53,7 +53,15 @@ public class RouteHandler {
             App.UI.popupError(this.parent, e);
         }
         this.excelSheet = this.excelHandler.getSheet("Domestic");
-        if (this.excelSheet == null) App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
+        if (this.excelSheet == null) {
+            App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
+            try {
+                this.excelHandler.close();
+            } catch (IOException e) {
+                App.UI.popupError(this.parent, new RuntimeException("Failed to close excel file: " + e.getMessage()));
+            }
+            return;
+        }
 
         Cell originCell = null, destinationCell = null, timeRestrictionCell, remarksCell, routeCell;
         String originValue, destinationValue, timeRestrictionValue, remarksValue, routeValue;
