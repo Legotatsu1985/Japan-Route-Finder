@@ -55,7 +55,7 @@ public class RouteHandler {
         this.excelSheet = this.excelHandler.getSheet("Domestic");
         if (this.excelSheet == null) App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
 
-        Cell originCell, destinationCell, timeRestrictionCell, remarksCell, routeCell;
+        Cell originCell = null, destinationCell = null, timeRestrictionCell, remarksCell, routeCell;
         String originValue, destinationValue, timeRestrictionValue, remarksValue, routeValue;
         for (Row row : this.excelSheet) {
             originCell = row.getCell(ORIGIN_COLUMN);
@@ -75,6 +75,9 @@ public class RouteHandler {
                     this.routes.add(route);
                 }
             }
+        }
+        if (originCell == null || destinationCell == null) {
+            App.UI.popupError(this.parent, new IllegalArgumentException("Cannot find origin and destination cells"));
         }
         try {
             this.excelHandler.close();
