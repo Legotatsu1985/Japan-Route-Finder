@@ -104,5 +104,14 @@
         "description": "The application does not save the Excel file path to the configuration file."
       }
     ]
+  },
+  "1.2.2": {
+    "release_type": "minor",
+    "fixed": [
+      {
+        "date": "2026-05-14",
+        "description": "Cannot get the origin and destination cells due to the change of Excel data format."
+      }
+    ]
   }
 }
