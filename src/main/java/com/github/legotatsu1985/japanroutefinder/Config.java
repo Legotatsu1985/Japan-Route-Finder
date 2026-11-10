@@ -20,6 +20,11 @@ public class Config {
     private @Nullable String xlsxFilePath;
     private int developmentModeInt;
     private boolean developmentMode;
+    private String excelColumnNameOrigin;
+    private String excelColumnNameDestination;
+    private String excelColumnNameTimeRestriction;
+    private String excelColumnNameRemarks;
+    private String excelColumnNameRoutes;
 
     public Config(@NotNull String configFilePath) {
         CFG_PATH = Paths.get(configFilePath);
@@ -33,6 +38,11 @@ public class Config {
             PropertyManager.save("lang", "en");
             PropertyManager.save("style", 0);
             PropertyManager.save("devMode", 0);
+            PropertyManager.save("excelColumnNameOrigin", "DEP");
+            PropertyManager.save("excelColumnNameDestination", "DEST");
+            PropertyManager.save("excelColumnNameTimeRestriction", "Time Restriction");
+            PropertyManager.save("excelColumnNameRemarks", "Remarks");
+            PropertyManager.save("excelColumnNameRoutes", "Routes");
         } catch (Exception e) {
             throw new RuntimeException("Error creating default config: " + e.getMessage(), e);
         }
@@ -46,6 +56,11 @@ public class Config {
             this.xlsxFilePath = PropertyManager.getString("xlsxFilePath");
             this.developmentModeInt = PropertyManager.getInt("devMode");
             this.developmentMode = getDevelopmentMode(this.developmentModeInt);
+            this.excelColumnNameOrigin = PropertyManager.getString("excelColumnNameOrigin");
+            this.excelColumnNameDestination = PropertyManager.getString("excelColumnNameDestination");
+            this.excelColumnNameTimeRestriction = PropertyManager.getString("excelColumnNameTimeRestriction");
+            this.excelColumnNameRemarks = PropertyManager.getString("excelColumnNameRemarks");
+            this.excelColumnNameRoutes = PropertyManager.getString("excelColumnNameRoutes");
         } catch (Exception e) {
             throw new RuntimeException("Error loading config: " + e.getMessage(), e);
         }
@@ -65,6 +80,7 @@ public class Config {
 
     private boolean getDevelopmentMode(int mode) {return mode == 1;}
 
+    @Deprecated
     public void saveXlsxFilePath(@NotNull String xlsxFilePath, boolean checkboxState) {
         String xlsxFilePathKey = "xlsxFilePath";
         if (checkboxState) {
@@ -87,4 +103,9 @@ public class Config {
     public LookAndFeel getWindowStyle() {return windowStyle;}
     public @Nullable String getXlsxFilePath() {return xlsxFilePath;}
     public boolean isDevelopmentMode() {return this.developmentMode;}
+    public String getExcelColumnNameOrigin() {return excelColumnNameOrigin;}
+    public String getExcelColumnNameDestination() {return excelColumnNameDestination;}
+    public String getExcelColumnNameTimeRestriction() {return excelColumnNameTimeRestriction;}
+    public String getExcelColumnNameRemarks() {return excelColumnNameRemarks;}
+    public String getExcelColumnNameRoutes() {return excelColumnNameRoutes;}
 }
