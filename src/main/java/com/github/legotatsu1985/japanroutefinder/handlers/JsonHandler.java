@@ -1,9 +1,9 @@
 package com.github.legotatsu1985.japanroutefinder.handlers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.legotatsu1985.japanroutefinder.App;
 import org.jetbrains.annotations.NotNull;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.*;
 
