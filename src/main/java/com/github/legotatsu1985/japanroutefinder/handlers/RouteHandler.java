@@ -12,13 +12,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RouteHandler {
-    private JFrame parent;
+    private final JFrame parent;
 
+    /*
     private static final int ORIGIN_COLUMN = 2;
     private static final int DESTINATION_COLUMN = 3;
     private static final int TIME_RESTRICTION_COLUMN = 4;
     private static final int REMARKS_COLUMN = 5;
     private static final int ROUTE_COLUMN = 6;
+     */
+
+    private int originColumn = 0;
+    private int destinationColumn = 0;
+    private int timeRestrictionColumn = 0;
+    private int remarksColumn = 0;
+    private int routeColumn = 0;
 
     private ExcelHandler excelHandler;
     private Sheet excelSheet;
@@ -34,25 +42,24 @@ public class RouteHandler {
         }
         this.excelHandler = new ExcelHandler(xlsxFilePath);
         this.routes = new LinkedList<>();
+        this.setColumnIndexes();
     }
 
-    public void find(@NotNull String origin, @NotNull String destination) {
-        this.routes.clear();
-        this.origin = origin;
-        this.destination = destination;
-
+    private void openExcelFile() {
         try {
             this.excelHandler.open();
+            this.excelSheet = this.excelHandler.getSheet("Domestic");
         } catch (IOException e) {
-            // throw new RuntimeException("Failed to open excel file: " + e.getMessage());
             App.UI.popupError(this.parent, new RuntimeException("Failed to open excel file:" + e.getMessage()));
         } catch (EncryptedDocumentException e) {
-            // throw new EncryptedDocumentException("Excel file is encrypted and cannot be opened: " + e.getMessage());
             App.UI.popupError(this.parent, new EncryptedDocumentException("Excel file is encrypted and cannot be opened: " + e.getMessage()));
         } catch (Exception e) {
             App.UI.popupError(this.parent, e);
         }
-        this.excelSheet = this.excelHandler.getSheet("Domestic");
+    }
+
+    private void setColumnIndexes() {
+        this.openExcelFile();
         if (this.excelSheet == null) {
             App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
             try {
@@ -63,18 +70,83 @@ public class RouteHandler {
             return;
         }
 
+        String originColumnName = App.CFG.getExcelColumnNameOrigin();
+        String destinationColumnName = App.CFG.getExcelColumnNameDestination();
+        String timeRestrictionColumnName = App.CFG.getExcelColumnNameTimeRestriction();
+        String remarksColumnName = App.CFG.getExcelColumnNameRemarks();
+        String routesColumnName = App.CFG.getExcelColumnNameRoutes();
+
+        if (originColumnName == null || destinationColumnName == null || timeRestrictionColumnName == null || remarksColumnName == null || routesColumnName == null) {
+            App.UI.popupError(this.parent, new IllegalStateException("One or more column names are not set in the configuration"));
+            return;
+        }
+
+        for (Row row : this.excelSheet) {
+            for (Cell cell : row) {
+                String cellValue;
+                try {
+                    cellValue = cell.getStringCellValue().trim();
+                } catch (Exception e) {
+                    continue;
+                }
+                if (!cellValue.isEmpty()) {
+                    if (cellValue.equalsIgnoreCase(originColumnName)) {
+                        this.originColumn = cell.getColumnIndex();
+                    } else if (cellValue.equalsIgnoreCase(destinationColumnName)) {
+                        this.destinationColumn = cell.getColumnIndex();
+                    } else if (cellValue.equalsIgnoreCase(timeRestrictionColumnName)) {
+                        this.timeRestrictionColumn = cell.getColumnIndex();
+                    } else if (cellValue.equalsIgnoreCase(remarksColumnName)) {
+                        this.remarksColumn = cell.getColumnIndex();
+                    } else if (cellValue.equalsIgnoreCase(routesColumnName)) {
+                        this.routeColumn = cell.getColumnIndex();
+                    }
+                }
+                if (this.originColumn != 0 && this.destinationColumn != 0 && this.timeRestrictionColumn != 0 && this.remarksColumn != 0 && this.routeColumn != 0) {
+                    break;
+                }
+            }
+        }
+        System.out.printf("Column indexes set: origin=%d, destination=%d, timeRestriction=%d, remarks=%d, routes=%d%n",
+                this.originColumn, this.destinationColumn, this.timeRestrictionColumn, this.remarksColumn, this.routeColumn);
+    }
+
+    public void find(@NotNull String origin, @NotNull String destination) {
+        this.routes.clear();
+        this.origin = origin;
+        this.destination = destination;
+
+        this.openExcelFile();
+        if (this.excelSheet == null) {
+            App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
+            try {
+                this.excelHandler.close();
+            } catch (IOException e) {
+                App.UI.popupError(this.parent, new RuntimeException("Failed to close excel file: " + e.getMessage()));
+            }
+            return;
+        }
+        if (this.originColumn == 0 || this.destinationColumn == 0 || this.timeRestrictionColumn == 0 || this.remarksColumn == 0 || this.routeColumn == 0) {
+            App.UI.popupError(this.parent, new IllegalStateException("One or more column indexes are not set"));
+            try {
+                this.excelHandler.close();
+            } catch (IOException e) {
+                App.UI.popupError(this.parent, new RuntimeException("Failed to close excel file: " + e.getMessage()));
+            }
+            return;
+        }
         Cell originCell = null, destinationCell = null, timeRestrictionCell, remarksCell, routeCell;
         String originValue, destinationValue, timeRestrictionValue, remarksValue, routeValue;
         for (Row row : this.excelSheet) {
-            originCell = row.getCell(ORIGIN_COLUMN);
-            destinationCell = row.getCell(DESTINATION_COLUMN);
+            originCell = row.getCell(this.originColumn);
+            destinationCell = row.getCell(this.destinationColumn);
             if (originCell != null && destinationCell != null) {
                 originValue = originCell.getStringCellValue().trim();
                 destinationValue = destinationCell.getStringCellValue().trim();
                 if (originValue.length() == 4 && destinationValue.length() == 4 && originValue.equalsIgnoreCase(this.origin) && destinationValue.equalsIgnoreCase(this.destination)) {
-                    timeRestrictionCell = row.getCell(TIME_RESTRICTION_COLUMN);
-                    remarksCell = row.getCell(REMARKS_COLUMN);
-                    routeCell = row.getCell(ROUTE_COLUMN);
+                    timeRestrictionCell = row.getCell(this.timeRestrictionColumn);
+                    remarksCell = row.getCell(this.remarksColumn);
+                    routeCell = row.getCell(this.routeColumn);
                     timeRestrictionValue = timeRestrictionCell.getStringCellValue().trim();
                     remarksValue = remarksCell.getStringCellValue().trim();
                     routeValue = routeCell.getStringCellValue().trim();
