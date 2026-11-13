@@ -13,7 +13,7 @@ out/
 out/artifacts/Japan-Route-Finder.zip
 out/artifacts/Run_Archive.bat
 out/artifacts/Japan_Route_Finder_jar/Japan-Route-Finder.jar
-idea/artifacts/Japan_Route_Finder_jar.xml
+.idea/artifacts/Japan_Route_Finder_jar.xml
 *.iws
 *.iml
 *.ipr
