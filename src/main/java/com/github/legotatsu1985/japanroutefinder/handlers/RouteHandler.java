@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RouteHandler {
-    private final JFrame parent;
+    protected final JFrame parent;
 
     /*
     private static final int ORIGIN_COLUMN = 2;
@@ -22,15 +22,15 @@ public class RouteHandler {
     private static final int ROUTE_COLUMN = 6;
      */
 
-    private int originColumn = 0;
-    private int destinationColumn = 0;
-    private int timeRestrictionColumn = 0;
-    private int remarksColumn = 0;
-    private int routeColumn = 0;
+    protected int originColumn = 0;
+    protected int destinationColumn = 0;
+    protected int timeRestrictionColumn = 0;
+    protected int remarksColumn = 0;
+    protected int routeColumn = 0;
 
-    private ExcelHandler excelHandler;
-    private Sheet excelSheet;
-    private List<Route> routes;
+    protected ExcelHandler excelHandler;
+    protected Sheet excelSheet;
+    protected List<Route> routes;
     private String origin;
     private String destination;
 
@@ -45,7 +45,7 @@ public class RouteHandler {
         this.setColumnIndexes();
     }
 
-    private void openExcelFile() {
+    public void openExcelFile() {
         try {
             this.excelHandler.open();
             this.excelSheet = this.excelHandler.getSheet("Domestic");
@@ -58,7 +58,7 @@ public class RouteHandler {
         }
     }
 
-    private void setColumnIndexes() {
+    public void setColumnIndexes() {
         this.openExcelFile();
         if (this.excelSheet == null) {
             App.UI.popupError(this.parent, new IllegalStateException("Excel file is null"));
