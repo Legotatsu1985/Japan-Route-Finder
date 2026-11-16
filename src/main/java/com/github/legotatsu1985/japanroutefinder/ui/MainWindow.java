@@ -8,18 +8,18 @@ import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class MainWindow extends JFrame implements JFrameBuildCheck {
-    private JPanel basePanel;
+    private JPanel domesticBasePanel;
+    private JPanel internationalBasePanel;
     private SearchPanel searchPanel;
     private RouteResultPanel routeResultPanel;
     private JScrollPane scrollPane;
     private MainMenuBar mainMenuBar;
+    private JTabbedPane tabbedPane;
 
     public MainWindow() {
         super("Japan Route Finder");
@@ -34,9 +34,11 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
     }
     public void initComponents() {
         // Panels
-        this.basePanel = new JPanel();
+        this.domesticBasePanel = new JPanel();
         // this.basePanel.setLayout(new BoxLayout(this.basePanel, BoxLayout.Y_AXIS));
-        this.basePanel.setLayout(null);
+        this.domesticBasePanel.setLayout(null);
+        this.internationalBasePanel = new JPanel();
+        this.internationalBasePanel.setLayout(null);
         this.searchPanel = new SearchPanel(this);
         this.searchPanel.setBounds(0, 0, 985, 150);
 
@@ -44,19 +46,26 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
         this.mainMenuBar = new MainMenuBar();
         this.setJMenuBar(this.mainMenuBar);
 
+        // Tabbed Pane
+        this.tabbedPane = new JTabbedPane();
+
         // Scroll Pane
         this.scrollPane = new JScrollPane();
         this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     }
     public void addAll() {
         // Add Panels to Frame
-        this.basePanel.add(this.searchPanel);
-        this.basePanel.add(this.scrollPane);
-        this.add(this.basePanel);
+        this.domesticBasePanel.add(this.searchPanel);
+        this.domesticBasePanel.add(this.scrollPane);
+        // this.internationalBasePanel.add(this.searchPanel); 専用の検索パネルをaddする必要あり
+        // this.internationalBasePanel.add(this.scrollPane);
+        this.tabbedPane.add(this.domesticBasePanel, "Domestic");
+        this.tabbedPane.add(this.internationalBasePanel, "International");
+        this.add(this.tabbedPane);
     }
     public void searchRoute() {
         if (this.routeResultPanel != null) {
-            this.basePanel.remove(this.routeResultPanel);
+            this.domesticBasePanel.remove(this.routeResultPanel);
             this.revalidate();
             this.repaint();
         }
@@ -77,9 +86,11 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
         }
         this.routeResultPanel = new RouteResultPanel(routes);
         this.scrollPane.setViewportView(this.routeResultPanel);
-        this.scrollPane.setBounds(0, 150, 985, 410);
+        this.scrollPane.setBounds(0, 150, 985, 380);
         this.routeResultPanel.revalidate();
         this.routeResultPanel.repaint();
+        this.tabbedPane.revalidate();
+        this.tabbedPane.repaint();
         this.revalidate();
         this.repaint();
     }
