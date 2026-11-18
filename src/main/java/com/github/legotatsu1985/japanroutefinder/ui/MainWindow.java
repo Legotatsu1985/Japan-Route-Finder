@@ -15,11 +15,15 @@ import java.util.List;
 public class MainWindow extends JFrame implements JFrameBuildCheck {
     private JPanel domesticBasePanel;
     private JPanel internationalBasePanel;
+    private JPanel internationalOutboundPanel;
+    private JPanel internationalInboundPanel;
     private SearchPanel searchPanel;
     private RouteResultPanel routeResultPanel;
-    private JScrollPane scrollPane;
+    private JScrollPane domesticScrollPane;
+    private JScrollPane internationalOutboundScrollPane;
+    private JScrollPane internationalInboundScrollPane;
     private MainMenuBar mainMenuBar;
-    private JTabbedPane tabbedPane;
+    private JTabbedPane mainTabbedPane;
 
     public MainWindow() {
         super("Japan Route Finder");
@@ -39,6 +43,10 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
         this.domesticBasePanel.setLayout(null);
         this.internationalBasePanel = new JPanel();
         this.internationalBasePanel.setLayout(null);
+        this.internationalOutboundPanel = new JPanel();
+        this.internationalOutboundPanel.setLayout(null);
+        this.internationalInboundPanel = new JPanel();
+        this.internationalInboundPanel.setLayout(null);
         this.searchPanel = new SearchPanel(this);
         this.searchPanel.setBounds(0, 0, 985, 150);
 
@@ -47,21 +55,27 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
         this.setJMenuBar(this.mainMenuBar);
 
         // Tabbed Pane
-        this.tabbedPane = new JTabbedPane();
+        this.mainTabbedPane = new JTabbedPane();
 
         // Scroll Pane
-        this.scrollPane = new JScrollPane();
-        this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.domesticScrollPane = new JScrollPane();
+        this.domesticScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.internationalOutboundScrollPane = new JScrollPane();
+        this.internationalOutboundScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.internationalInboundScrollPane = new JScrollPane();
+        this.internationalInboundScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     }
     public void addAll() {
         // Add Panels to Frame
         this.domesticBasePanel.add(this.searchPanel);
-        this.domesticBasePanel.add(this.scrollPane);
+        this.domesticBasePanel.add(this.domesticScrollPane);
         // this.internationalBasePanel.add(this.searchPanel); 専用の検索パネルをaddする必要あり
-        // this.internationalBasePanel.add(this.scrollPane);
-        this.tabbedPane.add(this.domesticBasePanel, "Domestic");
-        this.tabbedPane.add(this.internationalBasePanel, "International");
-        this.add(this.tabbedPane);
+        this.internationalBasePanel.add(this.internationalOutboundScrollPane);
+        this.internationalBasePanel.add(this.internationalInboundScrollPane);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabDomestic"), this.domesticBasePanel);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabInternationalOutbound"), this.internationalOutboundPanel);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabInternationalInbound"), this.internationalInboundPanel);
+        this.add(this.mainTabbedPane);
     }
     public void searchRoute() {
         if (this.routeResultPanel != null) {
@@ -85,12 +99,12 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
             return;
         }
         this.routeResultPanel = new RouteResultPanel(routes);
-        this.scrollPane.setViewportView(this.routeResultPanel);
-        this.scrollPane.setBounds(0, 150, 985, 380);
+        this.domesticScrollPane.setViewportView(this.routeResultPanel);
+        this.domesticScrollPane.setBounds(0, 150, 985, 380);
         this.routeResultPanel.revalidate();
         this.routeResultPanel.repaint();
-        this.tabbedPane.revalidate();
-        this.tabbedPane.repaint();
+        this.mainTabbedPane.revalidate();
+        this.mainTabbedPane.repaint();
         this.revalidate();
         this.repaint();
     }
