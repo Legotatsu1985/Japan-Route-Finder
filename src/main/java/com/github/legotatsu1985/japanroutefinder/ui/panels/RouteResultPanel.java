@@ -1,7 +1,7 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
+import com.github.legotatsu1985.japanroutefinder.ui.IJFrame;
 import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RouteResultPanel extends JPanel implements JFrameBuildCheck {
+public class RouteResultPanel extends JPanel implements IJFrame {
     private List<RoutePanel> routePanels;
 
     public RouteResultPanel(@NotNull List<Route> routes) {

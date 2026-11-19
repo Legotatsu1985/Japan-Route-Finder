@@ -1,13 +1,12 @@
 package com.github.legotatsu1985.japanroutefinder.ui.menubars;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.handlers.UIHandler;
-import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
+import com.github.legotatsu1985.japanroutefinder.ui.IJFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class MainMenuBar extends JMenuBar implements JFrameBuildCheck {
+public class MainMenuBar extends JMenuBar implements IJFrame {
     // Menus
     private JMenu file;
 

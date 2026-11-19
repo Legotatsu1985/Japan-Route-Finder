@@ -1,16 +1,15 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
+import com.github.legotatsu1985.japanroutefinder.ui.IJFrame;
 import com.github.legotatsu1985.japanroutefinder.ui.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class SearchPanel extends JPanel implements JFrameBuildCheck {
+public class SearchPanel extends JPanel implements IJFrame {
     private JFrame parent;
 
     private BevelBorder fieldBorder;

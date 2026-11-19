@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class MainWindow extends JFrame implements JFrameBuildCheck {
+public class MainWindow extends JFrame implements IJFrame {
     private JPanel domesticBasePanel;
     private JPanel internationalBasePanel;
     private JPanel internationalOutboundPanel;
