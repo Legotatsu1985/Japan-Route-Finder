@@ -8,18 +8,23 @@ import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class MainWindow extends JFrame implements JFrameBuildCheck {
-    private JPanel basePanel;
+public class MainWindow extends JFrame implements IJFrame {
+    private JPanel domesticBasePanel;
+    private JPanel internationalOutboundPanel;
+    private JPanel internationalInboundPanel;
     private SearchPanel searchPanel;
+    private InternationalSearchPanel internationalOutboundSearchPanel;
+    private InternationalSearchPanel internationalInboundSearchPanel;
     private RouteResultPanel routeResultPanel;
-    private JScrollPane scrollPane;
+    private JScrollPane domesticScrollPane;
+    private JScrollPane internationalOutboundScrollPane;
+    private JScrollPane internationalInboundScrollPane;
     private MainMenuBar mainMenuBar;
+    private JTabbedPane mainTabbedPane;
 
     public MainWindow() {
         super("Japan Route Finder");
@@ -34,29 +39,51 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
     }
     public void initComponents() {
         // Panels
-        this.basePanel = new JPanel();
+        this.domesticBasePanel = new JPanel();
         // this.basePanel.setLayout(new BoxLayout(this.basePanel, BoxLayout.Y_AXIS));
-        this.basePanel.setLayout(null);
+        this.domesticBasePanel.setLayout(null);
+        this.internationalOutboundPanel = new JPanel();
+        this.internationalOutboundPanel.setLayout(null);
+        this.internationalInboundPanel = new JPanel();
+        this.internationalInboundPanel.setLayout(null);
         this.searchPanel = new SearchPanel(this);
         this.searchPanel.setBounds(0, 0, 985, 150);
+        this.internationalOutboundSearchPanel = new InternationalSearchPanel(this, InternationalSearchPanel.OUTBOUND);
+        this.internationalOutboundSearchPanel.setBounds(0, 0, 985, 150);
+        this.internationalInboundSearchPanel = new InternationalSearchPanel(this, InternationalSearchPanel.INBOUND);
+        this.internationalInboundSearchPanel.setBounds(0, 0, 985, 150);
 
         // Menu Bar
         this.mainMenuBar = new MainMenuBar();
         this.setJMenuBar(this.mainMenuBar);
 
+        // Tabbed Pane
+        this.mainTabbedPane = new JTabbedPane();
+
         // Scroll Pane
-        this.scrollPane = new JScrollPane();
-        this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.domesticScrollPane = new JScrollPane();
+        this.domesticScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.internationalOutboundScrollPane = new JScrollPane();
+        this.internationalOutboundScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        this.internationalInboundScrollPane = new JScrollPane();
+        this.internationalInboundScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     }
     public void addAll() {
         // Add Panels to Frame
-        this.basePanel.add(this.searchPanel);
-        this.basePanel.add(this.scrollPane);
-        this.add(this.basePanel);
+        this.domesticBasePanel.add(this.searchPanel);
+        this.domesticBasePanel.add(this.domesticScrollPane);
+        this.internationalOutboundPanel.add(this.internationalOutboundSearchPanel);
+        this.internationalInboundPanel.add(this.internationalInboundSearchPanel);
+        this.internationalOutboundPanel.add(this.internationalOutboundScrollPane);
+        this.internationalInboundPanel.add(this.internationalInboundScrollPane);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabDomestic"), this.domesticBasePanel);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabInternationalOutbound"), this.internationalOutboundPanel);
+        this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabInternationalInbound"), this.internationalInboundPanel);
+        this.add(this.mainTabbedPane);
     }
-    public void searchRoute() {
+    public void searchDomesticRoute() {
         if (this.routeResultPanel != null) {
-            this.basePanel.remove(this.routeResultPanel);
+            this.domesticBasePanel.remove(this.routeResultPanel);
             this.revalidate();
             this.repaint();
         }
@@ -76,13 +103,16 @@ public class MainWindow extends JFrame implements JFrameBuildCheck {
             return;
         }
         this.routeResultPanel = new RouteResultPanel(routes);
-        this.scrollPane.setViewportView(this.routeResultPanel);
-        this.scrollPane.setBounds(0, 150, 985, 410);
+        this.domesticScrollPane.setViewportView(this.routeResultPanel);
+        this.domesticScrollPane.setBounds(0, 150, 985, 380);
         this.routeResultPanel.revalidate();
         this.routeResultPanel.repaint();
+        this.mainTabbedPane.revalidate();
+        this.mainTabbedPane.repaint();
         this.revalidate();
         this.repaint();
     }
+    public void searchInternationalRoute() {}
     public void addListeners() {}
     public void actionPerformed(ActionEvent e) {}
     public void setDevelopmentMode(boolean b) {

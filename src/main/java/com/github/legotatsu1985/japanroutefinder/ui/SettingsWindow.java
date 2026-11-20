@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class SettingsWindow extends JDialog implements JFrameBuildCheck {
+public class SettingsWindow extends JDialog implements IJFrame {
     private static final String[] LANGUAGES = {"English", "日本語"};
     private static final String[] LANG_CODES = {"en", "ja"};
     private static final String[] WINDOW_STYLES = {"Light", "Dark", "IntelliJ", "Darcula"};

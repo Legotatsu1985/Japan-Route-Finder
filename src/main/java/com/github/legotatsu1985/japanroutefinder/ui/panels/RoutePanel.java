@@ -1,7 +1,7 @@
 package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
 import com.github.legotatsu1985.japanroutefinder.App;
-import com.github.legotatsu1985.japanroutefinder.ui.JFrameBuildCheck;
+import com.github.legotatsu1985.japanroutefinder.ui.IJFrame;
 import com.github.legotatsu1985.japanroutefinder.util.Route;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +13,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 
-public class RoutePanel extends JPanel implements JFrameBuildCheck {
+public class RoutePanel extends JPanel implements IJFrame {
     private LineBorder panelBorder;
     private JTextField routeField;
     private JLabel remarkLabel, timeRestrictionLabel;
