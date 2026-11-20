@@ -81,7 +81,7 @@ public class MainWindow extends JFrame implements IJFrame {
         this.mainTabbedPane.addTab(App.LANG_HANDLER.getString("main_tabInternationalInbound"), this.internationalInboundPanel);
         this.add(this.mainTabbedPane);
     }
-    public void searchRoute() {
+    public void searchDomesticRoute() {
         if (this.routeResultPanel != null) {
             this.domesticBasePanel.remove(this.routeResultPanel);
             this.revalidate();
@@ -112,6 +112,7 @@ public class MainWindow extends JFrame implements IJFrame {
         this.revalidate();
         this.repaint();
     }
+    public void searchInternationalRoute() {}
     public void addListeners() {}
     public void actionPerformed(ActionEvent e) {}
     public void setDevelopmentMode(boolean b) {

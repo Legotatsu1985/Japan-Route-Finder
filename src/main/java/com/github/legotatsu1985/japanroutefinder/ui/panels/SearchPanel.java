@@ -80,7 +80,7 @@ public class SearchPanel extends JPanel implements IJFrame {
         switch (command) {
             case "search":
                 if (this.parent instanceof MainWindow) {
-                    ((MainWindow) this.parent).searchRoute();
+                    ((MainWindow) this.parent).searchDomesticRoute();
                 } else {
                     App.UI.popupError(this.parent, "Error", "Parent frame must be an instance of \"MainWindow\"");
                 }

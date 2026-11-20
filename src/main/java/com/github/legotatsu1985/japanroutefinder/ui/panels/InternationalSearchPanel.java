@@ -2,6 +2,7 @@ package com.github.legotatsu1985.japanroutefinder.ui.panels;
 
 import com.github.legotatsu1985.japanroutefinder.App;
 import com.github.legotatsu1985.japanroutefinder.ui.IJFrame;
+import com.github.legotatsu1985.japanroutefinder.ui.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -88,6 +89,21 @@ public class InternationalSearchPanel extends JPanel implements IJFrame {
 
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        if (command.equalsIgnoreCase("search")) {
+            // 検索処理
+            if (this.parent instanceof MainWindow) {
+                ((MainWindow) this.parent).searchInternationalRoute();
+            }
+        } else if (command.equalsIgnoreCase("reset")) {
+            if (this.field1.getText() != null || !this.field1.getText().isEmpty()) {
+                this.field1.setText("");
+            }
+            if (this.field2.getText() != null || !this.field2.getText().isEmpty()) {
+                this.field2.setText("");
+            }
+        } else {
+            App.UI.popupError(this.parent, "Error", "Unknown action command: " + command);
+        }
     }
 
     public void setDevelopmentMode(boolean b) {
